@@ -1,0 +1,34 @@
+{
+  "extends": "@workspace/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"],
+      "@views/*": ["./views/*"],
+      "@workspace/types/*": ["../../packages/types/src/*"],
+      "@workspace/hooks/*": ["../../packages/hooks/src/*"],
+      "@workspace/state/*": ["../../packages/state/src/*"],
+      "@workspace/i18n/*": ["../../packages/i18n/src/*"],
+      "@workspace/ui/*": ["../../packages/ui/src/*"],
+      "@moon/client": ["../../packages/moon-client/src/index.ts"],
+      "@moon/client/*": ["../../packages/moon-client/src/*"],
+      "@moon/khidra": ["../../packages/moon-khidra/src/index.ts"],
+      "@moon/time": ["../../packages/moon-time/src/index.ts"],
+      "@moon/witness": ["../../packages/moon-witness/src/index.ts"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

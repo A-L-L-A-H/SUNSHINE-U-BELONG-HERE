@@ -1,0 +1,10 @@
+"use client"
+
+import { useState } from "react"
+import { Section, SectionBadge } from "@workspace/ui"
+import { OSKnowledgeDockFooter, OSKnowledgeDockPanels, OSKnowledgeModuleCards } from "./os-knowledge-dock-sections"
+
+export function OSKnowledgeDock() {
+  const [searchQuery, setSearchQuery] = useState("")
+  return <Section id="knowledge-modules" borderColor="cyan" className="relative"><div className="pointer-events-none absolute inset-0"><div className="bg-radial-gradient absolute top-1/4 left-1/2 h-[600px] w-[1200px] -translate-x-1/2 from-primary/10 via-blue-950/10 to-transparent blur-[150px]" /></div><div className="relative z-10 space-y-12"><div className="flex flex-col justify-between gap-6 border-b border-border pb-6 lg:flex-row lg:items-end"><div className="max-w-3xl space-y-4"><SectionBadge number="04" label="KNOWLEDGE MODULES" /><h2 className="font-mono text-3xl font-black tracking-wider text-foreground uppercase sm:text-5xl">EXPLORE. LEARN. UNDERSTAND.</h2><p className="font-sans text-sm font-medium tracking-wide text-primary">Integrated knowledge modules across revelation, history, science, and wisdom.</p></div><div className="flex min-w-[280px] shrink-0 flex-col justify-between space-y-3 rounded-xl border-2 border-primary/50 bg-background p-4 shadow-sm"><div className="flex items-center justify-between border-b border-border pb-2"><span className="text-xs font-bold tracking-wider text-primary uppercase">TOTAL MODULES</span><span className="text-2xl font-black text-primary">07</span></div><div className="grid grid-cols-2 gap-4 pt-1 text-center"><div><div className="text-[10px] text-primary uppercase">TOTAL TOPICS</div><div className="text-xl font-black text-foreground">1,248</div></div><div className="border-l border-border pl-4"><div className="text-[10px] text-primary uppercase">LEARNING PATHS</div><div className="text-xl font-black text-success">36</div></div></div></div></div><OSKnowledgeModuleCards /><OSKnowledgeDockPanels /><OSKnowledgeDockFooter searchQuery={searchQuery} onSearchChange={setSearchQuery} /></div></Section>
+}

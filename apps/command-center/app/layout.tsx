@@ -1,0 +1,36 @@
+import { Geist } from "next/font/google"
+import "@workspace/ui/globals.css"
+import { MoonProvider } from "@workspace/state"
+import { CommandCenterShell } from "@/components/shell"
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
+
+export const metadata = {
+  title: "MoonWitness — Command Center",
+  description: "MoonWitness administrative operations and platform management.",
+}
+
+export const dynamic = "force-dynamic"
+
+export default function CommandCenterRootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html
+      lang="en"
+      className={`${geist.variable}`}
+      suppressHydrationWarning
+    >
+      <body
+        className="bg-background font-sans text-foreground antialiased"
+        suppressHydrationWarning
+      >
+        <MoonProvider>
+          <CommandCenterShell>{children}</CommandCenterShell>
+        </MoonProvider>
+      </body>
+    </html>
+  )
+}

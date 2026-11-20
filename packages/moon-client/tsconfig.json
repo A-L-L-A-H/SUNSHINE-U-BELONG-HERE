@@ -1,0 +1,15 @@
+{
+  "extends": "@workspace/typescript-config/base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "paths": {
+      "@moon/client/*": ["./src/*"],
+      "@workspace/types/*": ["../types/src/*"],
+      "@workspace/hooks/*": ["../hooks/src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

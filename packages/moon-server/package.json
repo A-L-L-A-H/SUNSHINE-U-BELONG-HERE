@@ -1,0 +1,39 @@
+{
+  "name": "@moon/server",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "bin": {
+    "moon": "./bin/moon.js"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@moon/base": "workspace:*",
+    "@moon/orm": "workspace:*",
+    "@moon/protocol": "workspace:*",
+    "@opentelemetry/api": "^1.1.0",
+    "bcryptjs": "^3.0.2",
+    "fastify": "^5.12.1",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.0.0",
+    "nodemailer": "^9.0.3",
+    "pg": "^8.13.0",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@opentelemetry/auto-instrumentations-node": "^0.79.0",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.221.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.221.0",
+    "@opentelemetry/resources": "^2.10.0",
+    "@opentelemetry/sdk-metrics": "^2.10.0",
+    "@opentelemetry/sdk-node": "^0.221.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^20.19.41",
+    "@types/nodemailer": "^8.0.1",
+    "typescript": "^5.5.4"
+  }
+}

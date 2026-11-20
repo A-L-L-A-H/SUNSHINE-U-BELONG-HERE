@@ -1,0 +1,244 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+@source "../../../../apps/**/*.{ts,tsx}";
+@source "../../../../packages/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx}";
+@source "../../**/*.{ts,tsx}";
+
+/* Non-inline font utilities preserve the font variables supplied by app layouts. */
+@theme {
+  --font-mono: "JetBrains Mono", monospace;
+  --font-sans: "Geist", sans-serif;
+  --font-arabic: "Amiri", serif;
+}
+
+@theme inline {
+  --font-heading: var(--font-sans);
+
+  /* Canonical Semantic Tokens */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --primary: #0369a1;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #666670;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --success: #15803d;
+  --success-foreground: #ffffff;
+  --warning: #b45309;
+  --warning-foreground: #ffffff;
+  --info: #0369a1;
+  --info-foreground: #ffffff;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #0284c7;
+  --chart-1: #0284c7;
+  --chart-2: #10b981;
+  --chart-3: #f59e0b;
+  --chart-4: #8b5cf6;
+  --chart-5: #ec4899;
+  --radius: 0.375rem;
+  --sidebar: #f8fafc;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #0369a1;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f1f5f9;
+  --sidebar-accent-foreground: #0f172a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #0284c7;
+
+  /* Domain visualization tokens: Quranic Tajweed */
+  --tajweed-madda: #f43f5e;
+  --tajweed-madda-obligatory: #e11d48;
+  --tajweed-qalaqah: #3b82f6;
+  --tajweed-idgham: #10b981;
+  --tajweed-idgham-without-ghunnah: #84cc16;
+  --tajweed-ghunnah: #14b8a6;
+  --tajweed-ikhafa: #d946ef;
+  --tajweed-iqlab: #0ea5e9;
+  --tajweed-silent: #64748b;
+}
+
+.dark {
+  --background: #090d16;
+  --foreground: #f4f4f5;
+  --card: #0f172a;
+  --card-foreground: #f4f4f5;
+  --popover: #0f172a;
+  --popover-foreground: #f4f4f5;
+  --primary: #38bdf8;
+  --primary-foreground: #090d16;
+  --secondary: #1e293b;
+  --secondary-foreground: #f4f4f5;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #1e293b;
+  --accent-foreground: #f4f4f5;
+  --destructive: #f43f5e;
+  --destructive-foreground: #090d16;
+  --success: #34d399;
+  --success-foreground: #090d16;
+  --warning: #fbbf24;
+  --warning-foreground: #090d16;
+  --info: #38bdf8;
+  --info-foreground: #090d16;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #38bdf8;
+  --chart-1: #38bdf8;
+  --chart-2: #34d399;
+  --chart-3: #fbbf24;
+  --chart-4: #a78bfa;
+  --chart-5: #f472b6;
+  --sidebar: #0f172a;
+  --sidebar-foreground: #f4f4f5;
+  --sidebar-primary: #38bdf8;
+  --sidebar-primary-foreground: #090d16;
+  --sidebar-accent: #1e293b;
+  --sidebar-accent-foreground: #f4f4f5;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #38bdf8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased selection:bg-primary/20 selection:text-foreground;
+  }
+}
+
+/* Keyboard focus is shared by text links and controls. */
+@layer base {
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+/* Arabic reading preserves space for diacritics. */
+.arabic-text {
+  font-family: var(--font-arabic), "Amiri", "Scheherazade New", serif;
+  direction: rtl;
+  text-align: right;
+  line-height: 2.3;
+  letter-spacing: normal;
+}
+
+/* Domain visualization: Tajweed recitation markup */
+tajweed.madda_normal,
+tajweed.madda_permissible,
+tajweed.madda_necessery {
+  color: var(--tajweed-madda);
+}
+tajweed.madda_obligatory {
+  color: var(--tajweed-madda-obligatory);
+}
+tajweed.qalaqah {
+  color: var(--tajweed-qalaqah);
+}
+tajweed.idgham_shafawi,
+tajweed.idgham_mutajanisayn,
+tajweed.idgham_mutamaathilayn,
+tajweed.idgham_bighunnah {
+  color: var(--tajweed-idgham);
+}
+tajweed.idgham_bilaghunnah {
+  color: var(--tajweed-idgham-without-ghunnah);
+}
+tajweed.ghunnah {
+  color: var(--tajweed-ghunnah);
+}
+tajweed.ikhafa,
+tajweed.ikhfa,
+tajweed.ikhfa_shafawi {
+  color: var(--tajweed-ikhafa);
+}
+tajweed.iqlab {
+  color: var(--tajweed-iqlab);
+}
+tajweed.ham_wasl,
+tajweed.laam_shamsiyah,
+tajweed.slnt {
+  color: var(--tajweed-silent);
+}

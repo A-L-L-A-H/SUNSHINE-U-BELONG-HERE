@@ -1,0 +1,23 @@
+name: Security SAST
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  schedule:
+    - cron: '0 2 * * 1'
+  workflow_dispatch:
+
+jobs:
+  sast:
+    runs-on: ${{ vars.CI_RUNNER && 'self-hosted' || 'ubuntu-latest' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Run npm audit (supply chain)
+        run: pnpm audit --production --audit-level=high || true
+      - name: Run script audit rules
+        run: node scripts/audit.mjs
+      - name: Run umbrella audit validate
+        run: node scripts/umbrella-audit.mjs --validate || true
