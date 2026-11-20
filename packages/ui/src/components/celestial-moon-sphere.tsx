@@ -9,7 +9,6 @@ export interface CelestialMoonSphereProps {
   interactive?: boolean
   showTelemetry?: boolean
   glowColor?: string
-  className?: string
 }
 
 export function CelestialMoonSphere({
@@ -17,7 +16,7 @@ export function CelestialMoonSphere({
   size = 260,
   interactive = true,
   showTelemetry = true,
-  glowColor = "#00F0FF",
+  glowColor = "var(--primary)",
   className = "",
 }: CelestialMoonSphereProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)

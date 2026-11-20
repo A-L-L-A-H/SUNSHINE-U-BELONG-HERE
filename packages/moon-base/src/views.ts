@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'vx.user': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'UserCog',
     table: {
       columns: ['name', 'email', 'login', 'phone', 'level', 'isActive'],
@@ -23,7 +23,7 @@ export const views: Record<string, ViewManifest> = {
 
   'vx.node': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'Building2',
     table: {
       columns: ['name', 'email', 'phone', 'isCompany', 'parentId'],
@@ -41,7 +41,7 @@ export const views: Record<string, ViewManifest> = {
 
   'vx.role': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'Shield',
     table: { columns: ['name', 'users'], searchKeys: ['name'] },
     form: {
@@ -54,7 +54,7 @@ export const views: Record<string, ViewManifest> = {
 
   'ir.report': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'FileText',
     table: {
       columns: ['name', 'model', 'reportType', 'orientation', 'active'],
@@ -73,7 +73,7 @@ export const views: Record<string, ViewManifest> = {
 
   'ir.version': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'History',
     table: {
       columns: ['resModel', 'resId', 'userId', 'summary', 'changedFields'],

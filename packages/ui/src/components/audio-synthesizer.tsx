@@ -64,7 +64,7 @@ class SystemAudioEngine {
     osc.stop(this.ctx.currentTime + 0.03)
   }
 
-  public playTacticalClick() {
+  public playSystemClick() {
     this.playClick()
   }
 

@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'wx.scripture': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'BookOpen',
     table: {
       columns: ['name', 'canonicalCode', 'booksCount', 'versesCount'],
@@ -21,7 +21,7 @@ export const views: Record<string, ViewManifest> = {
 
   'wx.tradition': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'ScrollText',
     table: {
       columns: ['name', 'author', 'totalItems', 'category'],
@@ -39,7 +39,7 @@ export const views: Record<string, ViewManifest> = {
 
   'wx.asmaul.husna': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'Sparkles',
     table: {
       columns: ['number', 'nameArabic', 'nameLatin', 'translationId', 'meaning'],

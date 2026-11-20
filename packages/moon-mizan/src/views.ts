@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'mz.case': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'Scale',
     table: {
       columns: ['title', 'status', 'subjectAlias', 'subjectAge', 'createdAt'],
@@ -23,7 +23,7 @@ export const views: Record<string, ViewManifest> = {
 
   'mz.assessment': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'ClipboardCheck',
     table: {
       columns: ['caseId', 'method', 'totalWeight', 'confidence', 'isFinalized'],

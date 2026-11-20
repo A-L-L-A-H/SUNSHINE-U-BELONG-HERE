@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'mail.message': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'MessageSquare',
     table: {
       columns: ['resModel', 'resId', 'messageType', 'authorId', 'createdAt'],
@@ -21,7 +21,7 @@ export const views: Record<string, ViewManifest> = {
 
   'mail.activity': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'CalendarCheck',
     table: {
       columns: ['resModel', 'resId', 'activityTypeId', 'userId', 'dateDeadline', 'state'],

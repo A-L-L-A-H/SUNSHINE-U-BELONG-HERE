@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'channel.channel': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'Hash',
     table: {
       columns: ['name', 'code', 'type', 'provider', 'companyId'],
@@ -22,7 +22,7 @@ export const views: Record<string, ViewManifest> = {
 
   'channel.member': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'Users',
     table: {
       columns: ['channelId', 'userId', 'role', 'joinedAt', 'isActive'],
@@ -39,7 +39,7 @@ export const views: Record<string, ViewManifest> = {
 
   'channel.message': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'MessageCircle',
     table: {
       columns: ['channelId', 'authorId', 'messageType', 'body', 'createdAt'],

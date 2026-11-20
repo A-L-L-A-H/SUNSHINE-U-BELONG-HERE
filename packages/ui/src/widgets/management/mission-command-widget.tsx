@@ -17,7 +17,7 @@ export function MissionCommandWidget() {
         <div className="mb-4 flex items-center justify-between">
           <div>
             <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              OPERATIONS CENTER
+              Operations Center
             </div>
             <div className="mt-0.5 text-xs font-medium text-foreground">
               Today&apos;s Priority Actions
@@ -79,7 +79,7 @@ export function MissionCommandWidget() {
 
       <div className="flex items-center justify-between rounded-xl border border-border bg-card p-4 text-card-foreground shadow-sm">
         <div className="w-28 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          EXECUTIVE OVERVIEW
+          Executive Overview
         </div>
 
         <div className="flex flex-1 justify-between px-4 font-sans">

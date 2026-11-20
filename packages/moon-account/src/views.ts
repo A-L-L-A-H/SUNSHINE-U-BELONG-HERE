@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'account.account': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'BookText',
     table: {
       columns: ['code', 'name', 'accountType', 'companyId'],
@@ -19,7 +19,7 @@ export const views: Record<string, ViewManifest> = {
 
   'account.journal': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'Receipt',
     table: { columns: ['name', 'code', 'type'], searchKeys: ['name', 'code'] },
     form: {
@@ -30,7 +30,7 @@ export const views: Record<string, ViewManifest> = {
 
   'account.move': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'FileSpreadsheet',
     table: {
       columns: ['name', 'journalId', 'date', 'state', 'companyId'],

@@ -5,7 +5,7 @@
  */
 
 export type MatrixViewMode = 'table' | 'kanban' | 'metrics'
-export type MatrixAccentColor = 'cyan' | 'green' | 'yellow' | 'purple' | 'pink'
+export type MatrixAccentColor = 'primary' | 'success' | 'warning' | 'info' | 'destructive'
 
 export interface MatrixTableConfig {
   columns: string[]

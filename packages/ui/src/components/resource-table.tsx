@@ -26,7 +26,7 @@ export interface ResourceTableProps<T> {
   /** Optional table subtitle / description */
   subtitle?: string
   /** Accent color token theme */
-  accentColor?: "cyan" | "green" | "yellow" | "purple" | "pink"
+  accentColor?: "primary" | "success" | "warning" | "info" | "destructive"
   /** Callback when edit button is clicked */
   onEdit?: (item: T) => void
   /** Callback when delete button is clicked */
@@ -51,41 +51,41 @@ export interface ResourceTableProps<T> {
   className?: string
 }
 
-const COLOR_MAP = {
-  cyan: {
-    border: "border-sky-500/30 hover:border-sky-500/60",
-    headerGlow: "via-sky-500",
-    badge: "bg-sky-500/10 text-sky-500 border-sky-500/30",
-    searchRing: "focus:border-sky-500/60 focus:ring-sky-500/20",
-    btnEdit: "border-sky-500/40 bg-sky-500/10 text-sky-500 hover:bg-sky-500/20",
+const COLOR_MAP: Record<string, { border: string; headerGlow: string; badge: string; searchRing: string; btnEdit: string }> = {
+  primary: {
+    border: "border-primary/30 hover:border-primary/60",
+    headerGlow: "via-primary",
+    badge: "bg-primary/10 text-primary border-primary/30",
+    searchRing: "focus:border-primary/60 focus:ring-primary/20",
+    btnEdit: "border-primary/40 bg-primary/10 text-primary hover:bg-primary/20",
   },
-  green: {
-    border: "border-success/30 hover:border-emerald-500/60",
-    headerGlow: "via-emerald-500",
+  success: {
+    border: "border-success/30 hover:border-success/60",
+    headerGlow: "via-success",
     badge: "bg-success/10 text-success border-success/30",
-    searchRing: "focus:border-emerald-500/60 focus:ring-emerald-500/20",
-    btnEdit: "border-emerald-500/40 bg-success/10 text-success hover:bg-success/20",
+    searchRing: "focus:border-success/60 focus:ring-success/20",
+    btnEdit: "border-success/40 bg-success/10 text-success hover:bg-success/20",
   },
-  yellow: {
-    border: "border-warning/30 hover:border-amber-500/60",
-    headerGlow: "via-amber-500",
+  warning: {
+    border: "border-warning/30 hover:border-warning/60",
+    headerGlow: "via-warning",
     badge: "bg-warning/10 text-warning border-warning/30",
-    searchRing: "focus:border-amber-500/60 focus:ring-amber-500/20",
-    btnEdit: "border-amber-500/40 bg-warning/10 text-warning hover:bg-warning/20",
+    searchRing: "focus:border-warning/60 focus:ring-warning/20",
+    btnEdit: "border-warning/40 bg-warning/10 text-warning hover:bg-warning/20",
   },
-  purple: {
-    border: "border-border hover:border-border",
-    headerGlow: "via-transparent",
-    badge: "bg-muted text-primary border-border",
-    searchRing: "focus:border-border focus:ring-purple-500/20",
-    btnEdit: "border-border bg-muted text-primary hover:bg-muted",
+  info: {
+    border: "border-info/30 hover:border-info/60",
+    headerGlow: "via-info",
+    badge: "bg-info/10 text-info border-info/30",
+    searchRing: "focus:border-info/60 focus:ring-info/20",
+    btnEdit: "border-info/40 bg-info/10 text-info hover:bg-info/20",
   },
-  pink: {
-    border: "border-rose-500/30 hover:border-rose-500/60",
-    headerGlow: "via-rose-500",
-    badge: "bg-rose-500/10 text-rose-500 border-rose-500/30",
-    searchRing: "focus:border-rose-500/60 focus:ring-rose-500/20",
-    btnEdit: "border-rose-500/40 bg-rose-500/10 text-rose-500 hover:bg-rose-500/20",
+  destructive: {
+    border: "border-destructive/30 hover:border-destructive/60",
+    headerGlow: "via-destructive",
+    badge: "bg-destructive/10 text-destructive border-destructive/30",
+    searchRing: "focus:border-destructive/60 focus:ring-destructive/20",
+    btnEdit: "border-destructive/40 bg-destructive/10 text-destructive hover:bg-destructive/20",
   },
 }
 
@@ -101,7 +101,7 @@ export function ResourceTable<T = any>({
   searchKeys = [],
   title,
   subtitle,
-  accentColor = "cyan",
+  accentColor = "primary",
   onEdit,
   onDelete,
   onRowClick,

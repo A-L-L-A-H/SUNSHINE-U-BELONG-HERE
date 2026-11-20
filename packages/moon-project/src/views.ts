@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'pj.project': {
     defaultView: 'table',
-    accentColor: 'green',
+    accentColor: 'success',
     icon: 'FolderKanban',
     table: {
       columns: ['name', 'code', 'status', 'ownerId', 'startDate', 'endDate'],
@@ -24,7 +24,7 @@ export const views: Record<string, ViewManifest> = {
 
   'pj.task': {
     defaultView: 'kanban',
-    accentColor: 'green',
+    accentColor: 'success',
     icon: 'ListChecks',
     kanban: {
       groupBy: 'stageId',
@@ -54,7 +54,7 @@ export const views: Record<string, ViewManifest> = {
 
   'pj.stage': {
     defaultView: 'table',
-    accentColor: 'green',
+    accentColor: 'success',
     icon: 'Columns3',
     table: {
       columns: ['name', 'sequence', 'projectId', 'fold', 'isClosing'],
@@ -70,7 +70,7 @@ export const views: Record<string, ViewManifest> = {
 
   'pj.sprint': {
     defaultView: 'table',
-    accentColor: 'green',
+    accentColor: 'success',
     icon: 'Timer',
     table: {
       columns: ['name', 'projectId', 'status', 'startDate', 'endDate'],
@@ -88,7 +88,7 @@ export const views: Record<string, ViewManifest> = {
 
   'pj.milestone': {
     defaultView: 'table',
-    accentColor: 'green',
+    accentColor: 'success',
     icon: 'Flag',
     table: {
       columns: ['name', 'projectId', 'deadline'],

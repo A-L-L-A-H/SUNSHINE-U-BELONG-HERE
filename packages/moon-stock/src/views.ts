@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'stock.warehouse': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'Warehouse',
     table: { columns: ['name', 'code', 'companyId'], searchKeys: ['name', 'code'] },
     form: {
@@ -14,7 +14,7 @@ export const views: Record<string, ViewManifest> = {
 
   'stock.location': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'MapPin',
     table: { columns: ['name', 'usage', 'locationId', 'companyId'], searchKeys: ['name'] },
     form: {
@@ -25,7 +25,7 @@ export const views: Record<string, ViewManifest> = {
 
   'stock.move': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'ArrowRightLeft',
     table: {
       columns: ['name', 'productId', 'productUomQty', 'locationId', 'locationDestId', 'state'],

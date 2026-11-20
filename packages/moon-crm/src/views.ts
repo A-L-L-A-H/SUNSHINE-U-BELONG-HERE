@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'crm.lead': {
     defaultView: 'kanban',
-    accentColor: 'green',
+    accentColor: 'success',
     icon: 'Handshake',
     kanban: {
       groupBy: 'stageId',
@@ -31,7 +31,7 @@ export const views: Record<string, ViewManifest> = {
 
   'crm.stage': {
     defaultView: 'table',
-    accentColor: 'green',
+    accentColor: 'success',
     icon: 'Columns3',
     table: { columns: ['name', 'sequence'], searchKeys: ['name'] },
     form: {
@@ -42,7 +42,7 @@ export const views: Record<string, ViewManifest> = {
 
   'crm.team': {
     defaultView: 'table',
-    accentColor: 'green',
+    accentColor: 'success',
     icon: 'Users',
     table: { columns: ['name', 'userId'], searchKeys: ['name'] },
     form: {

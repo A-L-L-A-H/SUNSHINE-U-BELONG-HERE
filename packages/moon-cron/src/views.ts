@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'ir.cron': {
     defaultView: 'table',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Clock',
     table: {
       columns: ['name', 'model', 'intervalNumber', 'intervalType', 'nextCall', 'active', 'priority'],
@@ -24,7 +24,7 @@ export const views: Record<string, ViewManifest> = {
 
   'ir.cron.log': {
     defaultView: 'table',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Activity',
     table: {
       columns: ['cronId', 'status', 'durationMs', 'executedAt', 'message'],
@@ -42,7 +42,7 @@ export const views: Record<string, ViewManifest> = {
 
   'ir.queue.job': {
     defaultView: 'table',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Layers',
     table: {
       columns: ['name', 'queueName', 'status', 'priority', 'progress', 'attempts', 'nextRunAt', 'durationMs'],

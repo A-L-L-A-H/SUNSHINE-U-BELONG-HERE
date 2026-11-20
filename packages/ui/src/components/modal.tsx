@@ -11,8 +11,6 @@ export type ModalProps = {
   icon?: React.ElementType
   children: React.ReactNode
   maxWidth?: string // e.g. "max-w-lg", "max-w-2xl", "max-w-3xl"
-  borderColor?: string
-  glowColor?: string
 }
 
 const FOCUS_DELAY_MS = 50

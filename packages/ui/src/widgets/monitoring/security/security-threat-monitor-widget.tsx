@@ -5,10 +5,10 @@ import { ShieldAlert, Crosshair } from "lucide-react"
 import { type CyberAttack, type SourceStatus } from "@moon/client"
 
 export function SecurityThreatMonitorWidget({
-  cyberAttacks = [],
+  threatEvents = [],
   status = "UNAVAILABLE",
 }: {
-  cyberAttacks?: CyberAttack[]
+  threatEvents?: CyberAttack[]
   status?: SourceStatus
 }) {
   const statusLabel = status === "LIVE" ? "Alert Active" : status
@@ -24,7 +24,7 @@ export function SecurityThreatMonitorWidget({
           </span>
         </div>
         <div className="text-xs text-muted-foreground">
-          Events Detected: {cyberAttacks.length}
+          Events Detected: {threatEvents.length}
         </div>
       </div>
 
@@ -38,7 +38,7 @@ export function SecurityThreatMonitorWidget({
         </div>
 
         <div className="hide-scrollbar flex h-[200px] flex-col space-y-1 overflow-y-auto">
-          {cyberAttacks.length === 0 ? (
+          {threatEvents.length === 0 ? (
             <div className="py-10 text-center text-xs text-muted-foreground">
               {status === "UNAVAILABLE"
                 ? "Security event source unavailable. No event count is available."
@@ -47,7 +47,7 @@ export function SecurityThreatMonitorWidget({
                   : "No verified security events were returned."}
             </div>
           ) : (
-            cyberAttacks.map((attack, index) => (
+            threatEvents.map((attack, index) => (
               <div
                 key={index}
                 className="grid grid-cols-12 items-center gap-4 rounded-lg bg-card/60 px-2 py-1.5 font-mono text-[10px] text-foreground hover:bg-muted/40 transition-colors"
@@ -78,4 +78,3 @@ export function SecurityThreatMonitorWidget({
     </div>
   )
 }
-export const CyberThreatMonitorWidget = SecurityThreatMonitorWidget

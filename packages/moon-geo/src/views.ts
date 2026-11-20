@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'geo.province': {
     defaultView: 'table',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Map',
     table: {
       columns: ['name', 'kemendagriCode', 'lat', 'lng'],
@@ -20,7 +20,7 @@ export const views: Record<string, ViewManifest> = {
 
   'geo.city': {
     defaultView: 'table',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Building',
     table: {
       columns: ['name', 'provinceId', 'lat', 'lng'],

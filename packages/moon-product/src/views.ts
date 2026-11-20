@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'product.template': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'Package',
     table: {
       columns: ['name', 'categoryId', 'type', 'listPrice', 'standardPrice'],
@@ -21,7 +21,7 @@ export const views: Record<string, ViewManifest> = {
 
   'product.category': {
     defaultView: 'table',
-    accentColor: 'cyan',
+    accentColor: 'primary',
     icon: 'LayoutGrid',
     table: { columns: ['name', 'parentId'], searchKeys: ['name'] },
     form: {

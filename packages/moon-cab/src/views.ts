@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'cab.change': {
     defaultView: 'kanban',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'ShieldCheck',
     kanban: {
       groupBy: 'status',
@@ -33,7 +33,7 @@ export const views: Record<string, ViewManifest> = {
 
   'cab.meeting': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'CalendarDays',
     table: {
       columns: ['title', 'scheduledFor', 'status', 'facilitatorId'],
@@ -52,7 +52,7 @@ export const views: Record<string, ViewManifest> = {
 
   'cab.decision': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'Gavel',
     table: {
       columns: ['changeId', 'meetingId', 'outcome', 'rationale'],

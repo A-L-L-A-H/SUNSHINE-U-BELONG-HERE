@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'px.request': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'Activity',
     table: {
       columns: ['method', 'path', 'statusCode', 'latencyMs', 'timestamp'],
@@ -25,7 +25,7 @@ export const views: Record<string, ViewManifest> = {
 
   'px.query': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'Database',
     table: {
       columns: ['queryHash', 'operation', 'executionMs', 'isSlow', 'timestamp'],
@@ -43,7 +43,7 @@ export const views: Record<string, ViewManifest> = {
 
   'ir.dashboard.widget': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'LayoutDashboard',
     table: {
       columns: ['name', 'widgetType', 'model', 'aggregation', 'accentColor', 'sequence', 'active'],

@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'hd.ticket': {
     defaultView: 'kanban',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Ticket',
     kanban: {
       groupBy: 'stageId',
@@ -36,7 +36,7 @@ export const views: Record<string, ViewManifest> = {
 
   'hd.team': {
     defaultView: 'table',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Users',
     table: {
       columns: ['name', 'leaderId', 'description'],
@@ -53,7 +53,7 @@ export const views: Record<string, ViewManifest> = {
 
   'hd.stage': {
     defaultView: 'table',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Columns3',
     table: { columns: ['name', 'sequence', 'teamId', 'fold', 'isClosing'], searchKeys: ['name'] },
     form: {
@@ -64,7 +64,7 @@ export const views: Record<string, ViewManifest> = {
 
   'hd.sla': {
     defaultView: 'table',
-    accentColor: 'yellow',
+    accentColor: 'warning',
     icon: 'Clock',
     table: { columns: ['name', 'teamId', 'priority', 'responseHours', 'resolutionHours'], searchKeys: ['name'] },
     form: {

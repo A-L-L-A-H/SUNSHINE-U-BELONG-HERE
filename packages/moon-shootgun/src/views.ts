@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'sg.operation': {
     defaultView: 'table',
-    accentColor: 'pink',
+    accentColor: 'destructive',
     icon: 'Crosshair',
     table: {
       columns: ['name', 'targetUrl', 'verseIds', 'createdAt'],

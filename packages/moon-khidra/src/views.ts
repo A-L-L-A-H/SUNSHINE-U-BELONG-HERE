@@ -3,7 +3,7 @@ import type { ViewManifest } from '@moon/orm'
 export const views: Record<string, ViewManifest> = {
   'kh.conversation': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'BrainCircuit',
     table: {
       columns: ['title', 'userId', 'sessionId', 'createdAt'],
@@ -20,7 +20,7 @@ export const views: Record<string, ViewManifest> = {
 
   'ir.automation': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'Zap',
     table: {
       columns: ['name', 'model', 'trigger', 'actionType', 'active'],
@@ -45,7 +45,7 @@ export const views: Record<string, ViewManifest> = {
 
   'ir.webhook': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'Globe',
     table: {
       columns: ['name', 'url', 'eventTrigger', 'active'],
@@ -63,7 +63,7 @@ export const views: Record<string, ViewManifest> = {
 
   'ir.webhook.log': {
     defaultView: 'table',
-    accentColor: 'purple',
+    accentColor: 'info',
     icon: 'Activity',
     table: {
       columns: ['webhookId', 'event', 'status', 'responseCode', 'durationMs'],

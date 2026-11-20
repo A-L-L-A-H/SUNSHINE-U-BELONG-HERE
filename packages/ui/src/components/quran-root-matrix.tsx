@@ -118,7 +118,7 @@ export function QuranRootMatrix({ className = "" }: { className?: string }) {
                 <span className="text-xl font-bold font-serif text-primary">
                   {r.root}
                 </span>
-                <span className="text-xs text-success font-bold bg-emerald-950/40 px-2 py-0.5 rounded border border-success/30">
+                <span className="text-xs text-success font-bold bg-success/10 px-2 py-0.5 rounded border border-success/30">
                   {r.occurrences}x in Qur'an
                 </span>
               </div>
@@ -154,7 +154,7 @@ export function QuranRootMatrix({ className = "" }: { className?: string }) {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {selectedRoot.derivedWords.map((d) => (
                 <div key={d.word} className="p-3 rounded-xl border border-border bg-card">
-                  <div className="text-lg font-serif text-amber-300">{d.word}</div>
+                  <div className="text-lg font-serif text-primary">{d.word}</div>
                   <div className="text-xs font-bold text-foreground mt-1">{d.meaning}</div>
                   <div className="text-[10px] text-muted-foreground mt-0.5">{d.count} occurrences</div>
                 </div>
@@ -170,7 +170,7 @@ export function QuranRootMatrix({ className = "" }: { className?: string }) {
             </div>
             <div className="space-y-3">
               {selectedRoot.sampleVerses.map((v, i) => (
-                <div key={i} className="p-4 rounded-xl border border-success/20 bg-emerald-950/10">
+                <div key={i} className="p-4 rounded-xl border border-success/20 bg-success/10">
                   <div className="flex items-center justify-between text-xs text-success font-bold mb-2">
                     <span>QS {v.surah}:{v.ayah}</span>
                     <span className="text-[10px] text-muted-foreground">EXACT MATCH</span>
