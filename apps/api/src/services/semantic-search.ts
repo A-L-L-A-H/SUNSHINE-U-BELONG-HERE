@@ -201,18 +201,18 @@ export function computeBm25Similarity(
   }
 }
 
-export function computeHybridSearch(
+export async function computeHybridSearch(
   query: string,
   topK = 5,
   alpha = 0.5,
   provider: EmbeddingProvider = defaultEmbeddingProvider
-): HybridSearchResult {
-  const queryEmbedding = provider.embed(query)
+): Promise<HybridSearchResult> {
+  const queryEmbedding = await provider.embed(query)
   const bm25Result = computeBm25Similarity(query, topK * 2)
 
-  const hits: HybridSearchHit[] = bm25Result.results.map((hit) => {
+  const hits: HybridSearchHit[] = await Promise.all(bm25Result.results.map(async (hit) => {
     const doc = CANONICAL_INDEX.find((d) => d.id === hit.id)
-    const docEmbedding = doc ? provider.embed(doc.translation + ' ' + doc.arabic) : []
+    const docEmbedding = doc ? await provider.embed(doc.translation + ' ' + doc.arabic) : []
     const denseScore = docEmbedding.length > 0
       ? cosineSimilarity(queryEmbedding, docEmbedding)
       : 0
@@ -237,7 +237,7 @@ export function computeHybridSearch(
             ? 'DENSE_SEMANTIC'
             : 'HYBRID_FUSION',
     }
-  })
+  }))
 
   hits.sort((a, b) => b.similarity_score - a.similarity_score)
   const sliced = hits.slice(0, topK)

@@ -1,5 +1,6 @@
+''
 /**
- * RagPipeline — Deterministic RAG pipeline for @moon/witness.
+ * RagPipeline - Deterministic RAG pipeline for @moon/witness.
  *
  * Combines pgvector semantic search (HNSW index on WxPassage/WxContent)
  * with Witness engine runtime for reproducible, citation-traceable answers.
@@ -11,6 +12,7 @@ import type { EngineRunStore } from '../types/engine.js'
 import type { RbacContext } from '@moon/orm'
 import { WitnessEngineRuntime, WitnessEngineRegistry } from './engine-runtime.js'
 import { createRevelationQueryModule } from '../engines/revelation-query.js'
+import type { EngineRunRecord, EngineResultEnvelope } from '../types/engine.js'
 
 export interface RagSource {
   id: string
@@ -109,23 +111,29 @@ export class RagPipeline {
   private async runEngine(
     query: string,
     sources: RagSource[]
-  ): Promise<{ id: string } | undefined> {
+  ): Promise<EngineRunRecord | undefined> {
     this.engineRegistry.register(createRevelationQueryModule())
-    const store: EngineRunStore = {
-      create: async () => ({ id: 'rag-run-store' }),
-      complete: async () => ({}),
-      fail: async () => ({}),
-      getRun: async () => undefined,
-      getResult: async () => undefined,
+    const mockStore: EngineRunStore = {
+      persistent: false,
+      create: async (_ctx: unknown, record: Omit<EngineRunRecord, 'id'>): Promise<EngineRunRecord> => {
+        return { ...record, id: 'rag-run-' + Date.now() }
+      },
+      complete: async (_ctx: unknown, _runId: string, _result: EngineResultEnvelope, _outputChecksum: string) => {},
+      fail: async (_ctx: unknown, _runId: string, _code: string, _diagnostics: string) => {},
+      getRun: async (_ctx: unknown, _runId: string) => null,
+      getResult: async (_ctx: unknown, _runId: string) => null,
     }
-    const runtime = new WitnessEngineRuntime(store, {})
+    const runtime = new WitnessEngineRuntime(mockStore, {})
     try {
-      const run = await runtime.runModule(this.ctx, {
+      const result = await runtime.runModule(this.ctx, {
         moduleCode: 'revelation.query',
         moduleVersion: '1.0.0',
         input: { query, sources },
       })
-      return { id: (run as any).id }
+      // The store.create is called internally and returns the run record
+      // We need to get the run ID from the store
+      const runs = await mockStore.getRun(this.ctx, 'rag-run-')
+      return runs ?? undefined
     } catch {
       return undefined
     }

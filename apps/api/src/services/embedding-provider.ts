@@ -1,10 +1,11 @@
 /**
- * EmbeddingProvider — deterministic, zero-network embedding for dev / offline.
+ * EmbeddingProvider - deterministic, zero-network embedding for dev / offline.
  *
  * Projects text into a fixed-dimensional vector using token frequency over a
  * stable concept vocabulary. Production can swap in an external model (ONNX,
  * OpenAI embeddings, etc.) by implementing the same interface.
  */
+
 export interface EmbeddingProvider {
   embed(text: string): Promise<number[]>
   dimension: number
@@ -20,7 +21,8 @@ const CONCEPT_VOCABULARY: Record<string, string[]> = {
   TIME_CALCULATION: ['waktu', 'tahun', 'hisab', 'perhitungan', 'bilangan', 'time', 'calendar', 'calculation', 'years'],
 }
 
-const CONCEPT_DIMENSIONS = Object.keys(CONCEPT_VOCABULARY).length
+const CONCEPT_KEYS = Object.keys(CONCEPT_VOCABULARY) as (keyof typeof CONCEPT_VOCABULARY)[]
+const CONCEPT_DIMENSIONS = CONCEPT_KEYS.length
 
 function tokenize(text: string): string[] {
   if (!text) return []
@@ -32,10 +34,12 @@ export class DeterministicEmbeddingProvider implements EmbeddingProvider {
   readonly dimension = CONCEPT_DIMENSIONS
 
   async embed(text: string): Promise<number[]> {
-    const tokens = new Set(tokenize(text))
+    const safeText = text ?? ''
+    const tokens = new Set(tokenize(safeText))
     const vector: number[] = []
-    for (const dim of Object.values(CONCEPT_VOCABULARY)) {
-      const overlap = tokens.size
+    for (const key of CONCEPT_KEYS) {
+      const dim = CONCEPT_VOCABULARY[key]!
+      const overlap = tokens.size > 0
         ? [...tokens].filter((t) => dim.includes(t)).length / dim.length
         : 0
       vector.push(Math.round(overlap * 1000) / 1000)
@@ -52,9 +56,13 @@ export function cosineSimilarity(a: number[], b: number[]): number {
   let na = 0
   let nb = 0
   for (let i = 0; i < a.length; i++) {
-    dot += a[i] * b[i]
-    na += a[i] * a[i]
-    nb += b[i] * b[i]
+    const ai = a[i]
+    const bi = b[i]
+    if (ai !== undefined && bi !== undefined) {
+      dot += ai * bi
+      na += ai * ai
+      nb += bi * bi
+    }
   }
   const norm = Math.sqrt(na) * Math.sqrt(nb)
   return norm === 0 ? 0 : Math.max(0, Math.min(1, dot / norm))

@@ -1,86 +1,8 @@
-import WxEntity from './models/wx-entity.js'
-import WxEntityAlias from './models/wx-entity-alias.js'
-import WxEntityIdentifier from './models/wx-entity-identifier.js'
-import WxSource from './models/wx-source.js'
-import WxProvenance from './models/wx-provenance.js'
-import WxRelationType from './models/wx-relation-type.js'
-import WxRelation from './models/wx-relation.js'
-import WxReligion from './models/wx-religion.js'
-import WxCommunity from './models/wx-community.js'
-import WxScripture from './models/wx-scripture.js'
-import WxScriptureBook from './models/wx-scripture-book.js'
-import WxScriptureVerse from './models/wx-scripture-verse.js'
-import WxTradition from './models/wx-tradition.js'
-import WxTraditionItem from './models/wx-tradition-item.js'
-import WxDevotion from './models/wx-devotion.js'
-import WxAsmaulHusna from './models/wx-asmaul-husna.js'
-import WxBookmark from './models/wx-bookmark.js'
-import WxHistory from './models/wx-history.js'
-import WxPassage from './models/wx-passage.js'
-import WxTextEdition from './models/wx-text-edition.js'
-import WxContent from './models/wx-content.js'
-import WxRoot from './models/wx-root.js'
-import WxLexeme from './models/wx-lexeme.js'
-import WxLexicalOccurrence from './models/wx-lexical-occurrence.js'
-import WxRevelationEvent from './models/wx-revelation-event.js'
-import WxRevelationEventPassage from './models/wx-revelation-event-passage.js'
-import WxFigure from './models/wx-figure.js'
-import WxFigureName from './models/wx-figure-name.js'
-import WxFigureRole from './models/wx-figure-role.js'
-import WxTraditionCorpus from './models/wx-tradition-corpus.js'
-import WxTraditionUnit from './models/wx-tradition-unit.js'
-import WxTraditionReference from './models/wx-tradition-reference.js'
-import WxTraditionAttribution from './models/wx-tradition-attribution.js'
-import WxTransmissionChain from './models/wx-transmission-chain.js'
-import WxTransmissionLink from './models/wx-transmission-link.js'
-import WxTraditionAssessment from './models/wx-tradition-assessment.js'
-import WxConcept from './models/wx-concept.js'
-import WxAssertion from './models/wx-assertion.js'
-import WxEvidence from './models/wx-evidence.js'
-import WxDivineExpression from './models/wx-divine-expression.js'
-import WxDivineExpressionOccurrence from './models/wx-divine-expression-occurrence.js'
-import WxLegacyMapping from './models/wx-legacy-mapping.js'
-import WxEngineRun from './models/wx-engine-run.js'
-import WxEngineResult from './models/wx-engine-result.js'
-import WxResearchHypothesis from './models/wx-research-hypothesis.js'
-import WxResearchRun from './models/wx-research-run.js'
-import WxScoreResult from './models/wx-score-result.js'
-
-// Ingestion Data Plane (#65)
-import WxSourcePolicy from './models/wx-source-policy.js'
-import WxSourceManifest from './models/wx-source-manifest.js'
-import WxSourceArtifact from './models/wx-source-artifact.js'
-import WxSourceSnapshot from './models/wx-source-snapshot.js'
-
-// Graph core
-export * from './graph/contracts.js'
-export * from './graph/identity.js'
-export * from './graph/relation-ontology.js'
-export { WitnessGraphService } from './graph/service.js'
-export {
-  findEntities,
-  entityProfile,
-  passageByReference,
-  passageContent,
-  passageTree,
-  figureMentions,
-  DOMAIN_QUERY_LIMITS,
-  type EntityLookup,
-  type EntityProfile,
-  type PassageTree,
-  type FigureMentionResult
-} from './graph/domain-queries.js'
-export { seedWitnessGraphCore } from './seed/graph-core.js'
-export { loadDemoData } from './demo-data.js'
-export { views } from './views.js'
-
 // Astronomy (pure compute — no DB)
 // Astronomy is provided isomorphically by @moon/compute (zero-network, pure math).
 export { getMoonData, type MoonData } from '@moon/compute'
 export { getDailyPrayerTimes, type DailyPrayerTimes } from '@moon/compute'
 export { getSunPosition, type SunPositionData } from '@moon/compute'
-export type { getDailyPrayerTimes } from '@moon/compute'
-export type { getSunPosition } from '@moon/compute'
 
 // Routes
 export { registerWitnessRoutes } from './routes.js'
@@ -157,20 +79,7 @@ export { resolveEngineScope, checksumEngineScope } from './services/engine-scope
 export { finalizeEngineResult, checksumEngineResult } from './services/engine-evidence.js'
 export { SCORE_PROFILES, getScoreProfile, score, scoreEntity, scoreRelation, scoreAssertion, scoreEvidence, scoreFinding, toEngineScore, independentEvidence, type EvidenceIndependenceInput, type WitnessScoreDimension, type WitnessScoreProfile, type WitnessScoreResult } from './services/scoring.js'
 export { persistScoreResult, type PersistScoreInput } from './services/score-store.js'
-export {
-  mapLegacyResearchRecord,
-  adaptLegacyResearchRecord,
-  getLegacyResearchAdapter,
-  legacyIdempotencyKey,
-  type LegacyResearchAdapter,
-  type LegacyResearchProvenance,
-  type LegacyResearchRecord,
-  type LegacyResearchSource,
-  type WitnessLegacyCandidate
-} from './services/legacy-research-adapters.js'
-export { distribution, type ResearchDistribution, type ResearchObservation } from './services/research-patterns.js'
 export { InMemoryEngineRunStore, MoonOrmEngineRunStore } from './services/engine-store.js'
-export type { EngineRunStore } from './types/engine.js'
 export { WitnessEngineRegistry, WitnessEngineRuntime } from './services/engine-runtime.js'
 export {
   REVELATION_FAMILIES,
@@ -198,219 +107,149 @@ export {
   type FigureAnalysisInput,
   type TraditionAnalysisInput
 } from './engines/figure-tradition.js'
-export {
-  createLexicalAnalysisModule,
-  validateLexicalAnalysisInput,
-  type LexicalAnalysisInput
-} from './engines/lexical-analysis.js'
-export {
-  createConceptEvidenceModule,
-  validateConceptEvidenceInput,
-  type ConceptEvidenceInput
-} from './engines/concept-evidence.js'
-export {
-  createDivineExpressionModule,
-  validateDivineExpressionInput,
-  type DivineExpressionInput
-} from './engines/divine-expression.js'
-export {
-  createResearchHypothesisModule,
-  createAiResearchSynthesisModule,
-  validateResearchHypothesisInput,
-  type ResearchHypothesisInput
-} from './engines/research-hypothesis.js'
 
-export {
-  planLegacyMigration,
-  DEFAULT_ADAPTER_VERSION
-} from './services/legacy-migration.js'
-export {
-  executeLegacyMigration,
-  type LegacyMigrationExecution,
-  type LegacyMigrationExecutionOptions
-} from './services/legacy-migration-executor.js'
+// Witness graph models (#65 - apps/api imports)
+export { default as WxRelationType } from './models/wx-relation-type.js'
+export { default as WxReligion } from './models/wx-religion.js'
+export { default as WxScripture } from './models/wx-scripture.js'
+export { default as WxPassage } from './models/wx-passage.js'
+export { default as WxSource } from './models/wx-source.js'
+export { default as WxSourcePolicy } from './models/wx-source-policy.js'
+export { default as WxFigure } from './models/wx-figure.js'
+export { default as WxFigureName } from './models/wx-figure-name.js'
+export { default as WxFigureRole } from './models/wx-figure-role.js'
+export { default as WxTraditionCorpus } from './models/wx-tradition-corpus.js'
+export { default as WxTraditionUnit } from './models/wx-tradition-unit.js'
+export { default as WxTraditionReference } from './models/wx-tradition-reference.js'
+export { default as WxTraditionAttribution } from './models/wx-tradition-attribution.js'
+export { default as WxTransmissionChain } from './models/wx-transmission-chain.js'
+export { default as WxTransmissionLink } from './models/wx-transmission-link.js'
+export { default as WxTraditionAssessment } from './models/wx-tradition-assessment.js'
+export { default as WxEntity } from './models/wx-entity.js'
+export { default as WxEntityAlias } from './models/wx-entity-alias.js'
+export { default as WxEngineResult } from './models/wx-engine-result.js'
+export { default as WxProvenance } from './models/wx-provenance.js'
+export { default as WxRelation } from './models/wx-relation.js'
 
-export type {
-  LegacyWitnessModel,
-  LegacyRecord,
-  LegacyRecordBatch,
-  LegacyMigrationCursor,
-  LegacyMigrationOperation,
-  LegacyMigrationPlan,
-  MigrationOperationStatus
-} from './types/migration.js'
+// Additional witness models
+export { default as WxAsmaulHusna } from './models/wx-asmaul-husna.js'
+export { default as WxAssertion } from './models/wx-assertion.js'
+export { default as WxBookmark } from './models/wx-bookmark.js'
+export { default as WxCommunity } from './models/wx-community.js'
+export { default as WxConcept } from './models/wx-concept.js'
+export { default as WxContent } from './models/wx-content.js'
+export { default as WxDevotion } from './models/wx-devotion.js'
+export { default as WxDivineExpression } from './models/wx-divine-expression.js'
+export { default as WxDivineExpressionOccurrence } from './models/wx-divine-expression-occurrence.js'
+export { default as WxEngineRun } from './models/wx-engine-run.js'
+export { default as WxEntityIdentifier } from './models/wx-entity-identifier.js'
+export { default as WxEvidence } from './models/wx-evidence.js'
+export { default as WxHistory } from './models/wx-history.js'
+export { default as WxLegacyMapping } from './models/wx-legacy-mapping.js'
+export { default as WxLexeme } from './models/wx-lexeme.js'
+export { default as WxLexicalOccurrence } from './models/wx-lexical-occurrence.js'
+export { default as WxRevelationEvent } from './models/wx-revelation-event.js'
+export { default as WxRevelationEventPassage } from './models/wx-revelation-event-passage.js'
+export { default as WxRoot } from './models/wx-root.js'
+export { default as WxScoreResult } from './models/wx-score-result.js'
+export { default as WxScriptureBook } from './models/wx-scripture-book.js'
+export { default as WxScriptureVerse } from './models/wx-scripture-verse.js'
+export { default as WxSourceArtifact } from './models/wx-source-artifact.js'
+export { default as WxSourceManifest } from './models/wx-source-manifest.js'
+export { default as WxSourceSnapshot } from './models/wx-source-snapshot.js'
+export { default as WxTextEdition } from './models/wx-text-edition.js'
+export { default as WxTradition } from './models/wx-tradition.js'
+export { default as WxTraditionItem } from './models/wx-tradition-item.js'
+export { default as WxResearchHypothesis } from './models/wx-research-hypothesis.js'
+export { default as WxResearchRun } from './models/wx-research-run.js'
 
-export {
-  registerAdapter,
-  getAdapter,
-  listAdapters,
-  clearAdapters,
-  verifyArtifact,
-  normalizeArtifact,
-  validateNormalized,
-  executeImport
-} from './services/ingestion.js'
+// Graph service
+export { WitnessGraphService } from './graph/service.js'
 
-export {
-  sha256Buffer,
-  sha256String,
-  sha256File,
-  computeFingerprint,
-  computeRecordsChecksum,
-  stableSerialize,
-  validateArtifactPath
-} from './services/hash.js'
+// Corpus adapters and seed (#65 - apps/api imports)
+export { MoonwitnessCorpusAdapter } from './adapters/moonwitness-corpus-adapter.js'
+export type { CorpusReleasePayload } from './adapters/moonwitness-corpus-adapter.js'
+export { importCanonicalCorpus } from './services/canonical-corpus-importer.js'
+export { seedWitnessGraphCore } from './seed/graph-core.js'
+export { loadDemoData } from './demo-data.js'
+export { views } from './views.js'
 
-export {
-  runBuiltinValidation,
-  createReport,
-  addFinding
-} from './services/validation.js'
+import { registerWitnessRoutes } from './routes.js'
+import { registerWitnessEngineRoutes } from './engine-routes.js'
+import { seedWitnessGraphCore } from './seed/graph-core.js'
+import { loadDemoData } from './demo-data.js'
+import { views } from './views.js'
+import WxEntity from './models/wx-entity.js'
+import WxRelation from './models/wx-relation.js'
+import WxRelationType from './models/wx-relation-type.js'
+import WxSource from './models/wx-source.js'
+import WxSourcePolicy from './models/wx-source-policy.js'
+import WxProvenance from './models/wx-provenance.js'
+import WxPassage from './models/wx-passage.js'
+import WxTextEdition from './models/wx-text-edition.js'
+import WxContent from './models/wx-content.js'
+import WxScripture from './models/wx-scripture.js'
+import WxReligion from './models/wx-religion.js'
+import WxFigure from './models/wx-figure.js'
+import WxFigureName from './models/wx-figure-name.js'
+import WxFigureRole from './models/wx-figure-role.js'
+import WxTraditionCorpus from './models/wx-tradition-corpus.js'
+import WxTraditionUnit from './models/wx-tradition-unit.js'
+import WxTraditionReference from './models/wx-tradition-reference.js'
+import WxTraditionAttribution from './models/wx-tradition-attribution.js'
+import WxTransmissionChain from './models/wx-transmission-chain.js'
+import WxTransmissionLink from './models/wx-transmission-link.js'
+import WxTraditionAssessment from './models/wx-tradition-assessment.js'
+import WxEntityAlias from './models/wx-entity-alias.js'
+import WxEngineResult from './models/wx-engine-result.js'
+import WxAsmaulHusna from './models/wx-asmaul-husna.js'
+import WxAssertion from './models/wx-assertion.js'
+import WxBookmark from './models/wx-bookmark.js'
+import WxCommunity from './models/wx-community.js'
+import WxConcept from './models/wx-concept.js'
+import WxDevotion from './models/wx-devotion.js'
+import WxDivineExpression from './models/wx-divine-expression.js'
+import WxDivineExpressionOccurrence from './models/wx-divine-expression-occurrence.js'
+import WxEngineRun from './models/wx-engine-run.js'
+import WxEntityIdentifier from './models/wx-entity-identifier.js'
+import WxEvidence from './models/wx-evidence.js'
+import WxHistory from './models/wx-history.js'
+import WxLegacyMapping from './models/wx-legacy-mapping.js'
+import WxLexeme from './models/wx-lexeme.js'
+import WxLexicalOccurrence from './models/wx-lexical-occurrence.js'
+import WxRevelationEvent from './models/wx-revelation-event.js'
+import WxRevelationEventPassage from './models/wx-revelation-event-passage.js'
+import WxRoot from './models/wx-root.js'
+import WxScoreResult from './models/wx-score-result.js'
+import WxScriptureBook from './models/wx-scripture-book.js'
+import WxScriptureVerse from './models/wx-scripture-verse.js'
+import WxSourceArtifact from './models/wx-source-artifact.js'
+import WxSourceManifest from './models/wx-source-manifest.js'
+import WxSourceSnapshot from './models/wx-source-snapshot.js'
+import WxTradition from './models/wx-tradition.js'
+import WxTraditionItem from './models/wx-tradition-item.js'
+import WxResearchHypothesis from './models/wx-research-hypothesis.js'
+import WxResearchRun from './models/wx-research-run.js'
 
-export { FixtureAdapter, fixtureAdapter } from './adapters/fixture-adapter.js'
-export {
-  MoonwitnessCorpusAdapter,
-  moonwitnessCorpusAdapter,
-  type CorpusReleaseMetadata,
-  type CorpusEntryRecord,
-  type CorpusReleasePayload
-} from './adapters/moonwitness-corpus-adapter.js'
-export {
-  importCanonicalCorpus,
-  type DomainImportStats
-} from './services/canonical-corpus-importer.js'
-
-export {
-  lookupReference,
-  searchWitnessGraph,
-  normalizeArabic,
-  getSearchIndexDiagnostics,
-  type SearchOptions,
-  type SearchResult,
-  type ReferenceLookupResult
-} from './services/retrieval.js'
-
-// Models export
-export {
-  // Legacy scripture/tradition models
-  WxEntity,
-  WxEntityAlias,
-  WxEntityIdentifier,
-  WxSource,
-  WxProvenance,
-  WxRelationType,
-  WxRelation,
-  WxReligion,
-  WxCommunity,
-  WxScripture,
-  WxScriptureBook,
-  WxScriptureVerse,
-  WxTradition,
-  WxTraditionItem,
-  WxDevotion,
-  WxAsmaulHusna,
-  WxBookmark,
-  WxHistory,
-
-  // Canonical Scripture / Revelation graph (#51)
-  WxPassage,
-  WxTextEdition,
-  WxContent,
-  WxRoot,
-  WxLexeme,
-  WxLexicalOccurrence,
-  WxRevelationEvent,
-  WxRevelationEventPassage,
-
-  // Canonical Figure / Person graph (#52)
-  WxFigure,
-  WxFigureName,
-  WxFigureRole,
-
-  // Universal Tradition / Transmission graph (#53)
-  WxTraditionCorpus,
-  WxTraditionUnit,
-  WxTraditionReference,
-  WxTraditionAttribution,
-  WxTransmissionChain,
-  WxTransmissionLink,
-  WxTraditionAssessment,
-
-  // Concepts, assertions, evidence, and corpus-mined expressions (#54)
-  WxConcept,
-  WxAssertion,
-  WxEvidence,
-  WxDivineExpression,
-  WxDivineExpressionOccurrence,
-  WxLegacyMapping,
-  WxEngineRun,
-  WxEngineResult,
-  WxResearchHypothesis,
-  WxResearchRun,
-  WxScoreResult,
-
-  // Ingestion data plane models (#65)
-  WxSourcePolicy,
-  WxSourceManifest,
-  WxSourceArtifact,
-  WxSourceSnapshot
-}
-
-/**
- * @moon/witness — Divine Knowledge Addon
- * 
- * 📖 Scripture:  wx.scripture → wx.scripture.book → wx.scripture.verse
- * 📜 Tradition:  wx.tradition → wx.tradition.item
- * 🤲 Devotion:   wx.devotion (Adhkar, Doa, Hymns)
- * ✨ Asmaul Husna: wx.asmaul.husna (99 Names of Allah)
- * 🔖 User:       wx.bookmark, wx.history
- * 🌙 Astronomy:  getMoonData(), getIslamicData(), getDailyPrayerTimes()
- * 
- * 🔬 Ingestion (#65):
- *   wx.source.policy → wx.source.manifest → wx.source.artifact → wx.source.snapshot
- *   WitnessSourceAdapter contract, FixtureAdapter, hash/validation services
- */
 export default {
   name: 'witness',
-  description: 'Divine Knowledge, Scriptures, Traditions, Astronomy & Corpus Ingestion',
+  description: 'Witness graph & corpus addon',
   depends: ['base'],
   models: [
-    // Legacy models
     WxEntity,
-    WxEntityAlias,
-    WxEntityIdentifier,
-    WxSource,
-    WxProvenance,
-    WxRelationType,
     WxRelation,
-    WxReligion,
-    WxCommunity,
-    WxScripture,
-    WxScriptureBook,
-    WxScriptureVerse,
-    WxTradition,
-    WxTraditionItem,
-    WxDevotion,
-    WxAsmaulHusna,
-    WxBookmark,
-    WxHistory,
-
-    // Canonical Scripture / Revelation graph (#51)
+    WxRelationType,
+    WxSource,
+    WxSourcePolicy,
+    WxProvenance,
     WxPassage,
     WxTextEdition,
     WxContent,
-    WxRoot,
-    WxLexeme,
-    WxLexicalOccurrence,
-    WxRevelationEvent,
-    WxRevelationEventPassage,
-
-    // Canonical Figure / Person graph (#52)
+    WxScripture,
+    WxReligion,
     WxFigure,
     WxFigureName,
     WxFigureRole,
-
-    // Universal Tradition / Transmission graph (#53)
     WxTraditionCorpus,
     WxTraditionUnit,
     WxTraditionReference,
@@ -418,24 +257,40 @@ export default {
     WxTransmissionChain,
     WxTransmissionLink,
     WxTraditionAssessment,
-
-    // Concepts, assertions, evidence, and corpus-mined expressions (#54)
-    WxConcept,
+    WxEntityAlias,
+    WxEngineResult,
+    WxAsmaulHusna,
     WxAssertion,
-    WxEvidence,
+    WxBookmark,
+    WxCommunity,
+    WxConcept,
+    WxDevotion,
     WxDivineExpression,
     WxDivineExpressionOccurrence,
+    WxEngineRun,
+    WxEntityIdentifier,
+    WxEvidence,
+    WxHistory,
     WxLegacyMapping,
-  WxEngineRun,
-  WxEngineResult,
-  WxResearchHypothesis,
-  WxResearchRun,
-  WxScoreResult,
-
-    // Ingestion data plane (#65)
-    WxSourcePolicy,
-    WxSourceManifest,
+    WxLexeme,
+    WxLexicalOccurrence,
+    WxRevelationEvent,
+    WxRevelationEventPassage,
+    WxRoot,
+    WxScoreResult,
+    WxScriptureBook,
+    WxScriptureVerse,
     WxSourceArtifact,
-    WxSourceSnapshot
-  ]
+    WxSourceManifest,
+    WxSourceSnapshot,
+    WxTradition,
+    WxTraditionItem,
+    WxResearchHypothesis,
+    WxResearchRun
+  ],
+  views,
+  registerWitnessRoutes,
+  registerWitnessEngineRoutes,
+  seedWitnessGraphCore,
+  loadDemoData,
 }

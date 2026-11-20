@@ -7,11 +7,8 @@
  */
 import type { NativeServer } from '@moon/server'
 import { defineRoute } from '@moon/server'
-import {
-  type CorpusReleasePayload,
-} from '@moon/witness'
 import { MoonwitnessCorpusAdapter } from '@moon/witness'
-import type { ImportContext, NormalizedArtifact } from '@moon/witness'
+import type { ImportContext, NormalizedArtifact, CorpusReleasePayload } from '@moon/witness'
 import { importCanonicalCorpus } from '@moon/witness'
 
 export function registerPublicCorpusRoutes(server: NativeServer): void {
@@ -57,7 +54,21 @@ export function registerPublicCorpusRoutes(server: NativeServer): void {
       if (!manifest) {
         return { error: 'manifest is required', status: 400 }
       }
-      const result = await importCanonicalCorpus(manifest, { dryRun })
+      const adapter = new MoonwitnessCorpusAdapter()
+
+      const importCtx: ImportContext = {
+        env: {} as any,
+        manifestId: 0,
+        snapshotId: 0,
+        manifestCode: 'api-sync',
+        sourceKind: 'revelation_corpus',
+        authorityClass: 'REVELATION',
+        parserVersion: '1.0.0',
+        normalizationVersion: '1.0.0',
+      }
+      const parsed = await adapter.parse(Buffer.from(manifest, 'utf8'), importCtx)
+      const normalized = await adapter.normalize(parsed, importCtx)
+      const result = await importCanonicalCorpus(normalized, importCtx)
       return { synced: result, dry_run: dryRun }
     },
   })
