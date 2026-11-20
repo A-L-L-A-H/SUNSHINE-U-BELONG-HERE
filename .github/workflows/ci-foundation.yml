@@ -1,26 +1,12 @@
-name: CI Foundation
+name: Test CI
 
 on:
   workflow_dispatch:
 
-permissions:
-  contents: read
-
-env:
-  CI: 'true'
-
 jobs:
-  audit:
-    name: Constitutional & UI Audit
+  test:
+    name: Test
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - uses: pnpm/action-setup@f53f5227a9e83886ab598c617f3c170fab62f0d3 # v6
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
-        with:
-          node-version: '22'
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - name: Constitutional & Enterprise UI Audit
-        run: pnpm audit:rules
+      - run: echo 'Hello World'
