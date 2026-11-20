@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
 
   const token = request.cookies.get(SESSION_COOKIE)?.value
   const upstream = token
-    ? await requestApi("/auth/logout", {
+    ? await requestApi("/api/auth/session/logout", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       })

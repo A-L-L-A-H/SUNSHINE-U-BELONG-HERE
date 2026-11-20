@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   }
 
   const body = await request.text()
-  const upstream = await requestApi("/auth/login", {
+  const upstream = await requestApi("/api/auth/session/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body,

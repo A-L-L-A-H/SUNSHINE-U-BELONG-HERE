@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ user: null }, { status: 401 })
   }
 
-  const upstream = await requestApi("/auth/session", {
+  const upstream = await requestApi("/api/auth/session", {
     method: "GET",
     headers: { Authorization: `Bearer ${token}` },
   })

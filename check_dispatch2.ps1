@@ -1,0 +1,1 @@
+$c = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/A-L-L-A-H/SUNSHINE-U-BELONG-HERE/56561ed5b8f14d1c2f01bd0b13de5003a3da20fa/.github/workflows/foundation-ci.yml" -UseBasicParsing).Content; $c.Contains("workflow_dispatch")
