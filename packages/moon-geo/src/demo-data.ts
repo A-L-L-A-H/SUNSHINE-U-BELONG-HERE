@@ -102,5 +102,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-geo] Demo data enriched: ${provinceSeeds.length} provinces, ${citySeeds.length} observatory cities, and key districts seeded`)
+  const result = { provinces: provinceSeeds.length, cities: citySeeds.length, districts: District ? districtSeeds.length : 0 }
+  if (result.provinces === 0 && result.cities === 0 && result.districts === 0) {
+    throw new Error('[moon-geo] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-geo] Demo data enriched: ${result.provinces} provinces, ${result.cities} observatory cities, and key districts seeded`)
 }

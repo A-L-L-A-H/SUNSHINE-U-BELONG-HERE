@@ -128,5 +128,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-performance] Demo data loaded: ${requestSeeds.length} requests, ${cacheSeeds.length} caches, ${querySeeds.length} queries, system metrics, dashboard widgets`)
+  const result = { requests: requestSeeds.length, caches: cacheSeeds.length, queries: querySeeds.length, widgets: widgetSeeds.length }
+  if (result.requests === 0 && result.caches === 0 && result.queries === 0 && result.widgets === 0) {
+    throw new Error('[moon-performance] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-performance] Demo data loaded: ${result.requests} requests, ${result.caches} caches, ${result.queries} queries, system metrics, dashboard widgets`)
 }

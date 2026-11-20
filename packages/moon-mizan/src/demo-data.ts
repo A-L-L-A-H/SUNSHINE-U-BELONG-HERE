@@ -140,5 +140,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-mizan] Demo data enriched: ${caseSeeds.length} cases, assessments with filters and references`)
+  const result = { cases: caseSeeds.length }
+  if (result.cases === 0) {
+    throw new Error('[moon-mizan] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-mizan] Demo data enriched: ${result.cases} cases, assessments with filters and references`)
 }

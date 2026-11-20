@@ -100,5 +100,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-product] Demo data enriched: ${categorySeeds.length} categories, ${templateSeeds.length} product templates, variants & pricelists seeded`)
+  const result = { categories: categorySeeds.length, templates: templateSeeds.length }
+  if (result.categories === 0 && result.templates === 0) {
+    throw new Error('[moon-product] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-product] Demo data enriched: ${result.categories} categories, ${result.templates} product templates seeded`)
 }

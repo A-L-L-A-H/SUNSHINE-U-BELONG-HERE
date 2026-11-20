@@ -388,5 +388,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[seeder] Demo data seeding completed: ${traditionSeeds.length} traditions, ${hadithSeeds.length} hadiths, ${devotionSeeds.length} devotions.`)
+  const result = { traditions: traditionSeeds.length, hadiths: hadithSeeds.length, devotions: devotionSeeds.length }
+  if (result.traditions === 0 && result.hadiths === 0 && result.devotions === 0) {
+    throw new Error('[moon-witness] loadDemoData produced empty dataset')
+  }
+  console.log(`[seeder] Demo data seeding completed: ${result.traditions} traditions, ${result.hadiths} hadiths, ${result.devotions} devotions.`)
 }

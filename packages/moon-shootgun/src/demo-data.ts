@@ -50,5 +50,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-shootgun] Demo data enriched: ${operationSeeds.length} comprehensive operations with wisdom and arguments`)
+  const result = { operations: operationSeeds.length }
+  if (result.operations === 0) {
+    throw new Error('[moon-shootgun] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-shootgun] Demo data enriched: ${result.operations} comprehensive operations with wisdom and arguments`)
 }

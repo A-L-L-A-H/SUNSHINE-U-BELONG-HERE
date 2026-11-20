@@ -1,6 +1,7 @@
 FROM node:22-alpine
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@10.33.4 --activate
+RUN apk add --no-cache python3 make g++ sqlite-dev
 
 # Copy all source files
 COPY . .

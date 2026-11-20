@@ -90,5 +90,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-cab] Demo data enriched: ${changeSeeds.length} RFCs, ${meetingSeeds.length} governance meetings, ${decisionSeeds.length} formal decisions`)
+  const result = { changes: changeSeeds.length, meetings: meetingSeeds.length, decisions: decisionSeeds.length }
+  if (result.changes === 0 && result.meetings === 0 && result.decisions === 0) {
+    throw new Error('[moon-cab] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-cab] Demo data enriched: ${result.changes} RFCs, ${result.meetings} governance meetings, ${result.decisions} formal decisions`)
 }

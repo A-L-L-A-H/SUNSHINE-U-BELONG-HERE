@@ -3,6 +3,7 @@ FROM node:22-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable && corepack prepare pnpm@10.33.4 --activate
+RUN apk add --no-cache python3 make g++ sqlite-dev
 WORKDIR /app
 
 FROM base AS pruner
@@ -19,7 +20,11 @@ RUN pnpm install --frozen-lockfile
 COPY --from=pruner /app/out/full/ .
 COPY --from=pruner /app/tsconfig.json ./tsconfig.json
 ARG NEXT_PUBLIC_API_URL
+ARG BOOTSTRAP_ADMIN_EMAIL
+ARG BOOTSTRAP_ADMIN_PASSWORD
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV BOOTSTRAP_ADMIN_EMAIL=$BOOTSTRAP_ADMIN_EMAIL
+ENV BOOTSTRAP_ADMIN_PASSWORD=$BOOTSTRAP_ADMIN_PASSWORD
 RUN pnpm turbo build
 
 FROM base AS runner

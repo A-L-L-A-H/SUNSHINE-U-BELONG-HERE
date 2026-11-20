@@ -2,9 +2,11 @@ import { Channel } from './channel.js'
 import { ChannelMember } from './channel-member.js'
 import { ChannelMessage } from './message.js'
 import { views } from './views.js'
+import { loadDemoData } from './demo-data.js'
 
 export { views }
 export { Channel, ChannelMember, ChannelMessage }
+export { loadDemoData }
 
 export default {
   name: 'channels',

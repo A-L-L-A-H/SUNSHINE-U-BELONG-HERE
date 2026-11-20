@@ -209,7 +209,11 @@ export async function loadDemoData() {
     }
   }
 
+  const result = { teams: teamSeeds.length, slas: slaSeeds.length, tickets: ticketSeeds.length }
+  if (result.teams === 0 && result.slas === 0 && result.tickets === 0) {
+    throw new Error('[moon-helpdesk] loadDemoData produced empty dataset')
+  }
   console.log(
-    `[moon-helpdesk] Demo data loaded: ${teamSeeds.length} teams, ${slaSeeds.length} SLAs, ${ticketSeeds.length} tickets`
+    `[moon-helpdesk] Demo data loaded: ${result.teams} teams, ${result.slas} SLAs, ${result.tickets} tickets`
   )
 }

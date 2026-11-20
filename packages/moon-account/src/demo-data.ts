@@ -80,5 +80,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-account] Demo data enriched: ${accountSeeds.length} accounts (chart of accounts), ${journalSeeds.length} financial journals seeded successfully`)
+  const result = { accounts: accountSeeds.length, journals: journalSeeds.length }
+  if (result.accounts === 0 && result.journals === 0) {
+    throw new Error('[moon-account] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-account] Demo data enriched: ${result.accounts} accounts (chart of accounts), ${result.journals} financial journals seeded successfully`)
 }

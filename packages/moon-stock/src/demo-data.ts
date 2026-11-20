@@ -101,5 +101,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-stock] Demo data enriched: ${locationSeeds.length} locations, ${warehouseSeeds.length} warehouses, pickings initialized`)
+  const result = { locations: locationSeeds.length, warehouses: warehouseSeeds.length }
+  if (result.locations === 0 && result.warehouses === 0) {
+    throw new Error('[moon-stock] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-stock] Demo data enriched: ${result.locations} locations, ${result.warehouses} warehouses, pickings initialized`)
 }

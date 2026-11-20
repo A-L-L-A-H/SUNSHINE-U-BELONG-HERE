@@ -81,9 +81,11 @@ export async function loadDemoData() {
     }
   }
 
+  let messageSeeds: any[] = []
+
   // ── Sample System Chatter Messages ──
   if (Message && adminUserId) {
-    const messageSeeds = [
+    messageSeeds = [
       {
         body: 'Sistem observasi optik berhasil disinkronkan dengan data JPL Horizons (VSOP87).',
         resModel: 'pj.project',
@@ -111,5 +113,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-mail] Demo data enriched: ${activityTypeSeeds.length} activity types, sample activities & system chatter messages`)
+  const result = { activityTypes: activityTypeSeeds.length, messages: messageSeeds.length }
+  if (result.activityTypes === 0 && result.messages === 0) {
+    throw new Error('[moon-mail] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-mail] Demo data enriched: ${result.activityTypes} activity types, ${result.messages} system chatter messages seeded`)
 }

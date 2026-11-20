@@ -96,6 +96,8 @@ services:
       target: runner
       args:
         NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL:?PUBLIC_API_URL must be set in .env.production}
+        BOOTSTRAP_ADMIN_EMAIL: ${BOOTSTRAP_ADMIN_EMAIL:?BOOTSTRAP_ADMIN_EMAIL must be set in .env.production}
+        BOOTSTRAP_ADMIN_PASSWORD: ${BOOTSTRAP_ADMIN_PASSWORD:?BOOTSTRAP_ADMIN_PASSWORD must be set in .env.production}
     container_name: mw_web
     restart: unless-stopped
     command: ["pnpm", "--filter", "web", "start"]
@@ -106,6 +108,17 @@ services:
       NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL:?PUBLIC_API_URL must be set in .env.production}
     ports:
       - "127.0.0.1:${WEB_PORT:-3000}:3000"
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - app
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: mw_cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN:?CLOUDFLARE_TOKEN must be set in .env.production}
     depends_on:
       api:
         condition: service_healthy

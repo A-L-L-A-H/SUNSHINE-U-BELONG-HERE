@@ -148,60 +148,8 @@ export async function loadDemoData() {
 
   // ── Demo Report Templates ──
   const IrReport = getModel('ir.report')
+  const demoReports = jsonSeed?.reportTemplates || []
   if (IrReport) {
-    const demoReports = jsonSeed?.reportTemplates || [
-      {
-        name: 'Project Milestone Status Briefing',
-        model: 'pj.project',
-        reportType: 'briefing',
-        orientation: 'portrait',
-        headerTitle: 'COSMIC MISSION EXECUTION BRIEFING',
-        footerNotice: 'CONFIDENTIAL // FOR INTERNAL OBSERVATORY GOVERNANCE ONLY',
-        showQrCode: true,
-        active: true,
-      },
-      {
-        name: 'Support SLA Compliance Audit',
-        model: 'hd.ticket',
-        reportType: 'audit',
-        orientation: 'portrait',
-        headerTitle: 'INCIDENT & SLA AUDIT CERTIFICATION',
-        footerNotice: 'OFFICIAL SYSTEM COMPLIANCE VERIFICATION RECORD',
-        showQrCode: true,
-        active: true,
-      },
-      {
-        name: 'CAB RFC Decision Memorandum',
-        model: 'cab.change',
-        reportType: 'briefing',
-        orientation: 'portrait',
-        headerTitle: 'CIVILIZATION ARCHITECTURE BOARD // RFC MEMO',
-        footerNotice: 'CONSENSUS RATIFIED UNDER CONSTITUTIONAL LAW',
-        showQrCode: true,
-        active: true,
-      },
-      {
-        name: 'Financial Ledger & Zakat Disbursement Summary',
-        model: 'account.move',
-        reportType: 'audit',
-        orientation: 'landscape',
-        headerTitle: 'FINANCIAL INTEGRITY & ZAKAT DISTRIBUTION REPORT',
-        footerNotice: 'VERIFIED AGAINST DOUBLE-ENTRY LEDGER CONSTRAINTS',
-        showQrCode: true,
-        active: true,
-      },
-      {
-        name: 'Astronomical Ru’yah Observation Registry',
-        model: 'geo.city',
-        reportType: 'briefing',
-        orientation: 'portrait',
-        headerTitle: 'NATIONAL RU\'YATUL HILAL OBSERVATION REGISTRY',
-        footerNotice: 'AUTHENTICATED UNDER IMKANUR RUKYAT MABIMS CRITERIA',
-        showQrCode: true,
-        active: true,
-      }
-    ]
-
     for (const r of demoReports) {
       const existingRep = await (IrReport as any).fetch(IrReport, env, [['name', '=', r.name]])
       if (!existingRep.length) {
@@ -210,5 +158,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-base] Demo data loaded: ${demoUsers.length} operators, ${demoBranches.length} observatory stations, report templates initialized`)
+  const result = { operators: demoUsers.length, stations: demoBranches.length, reports: demoReports.length }
+  if (result.operators === 0 && result.stations === 0 && result.reports === 0) {
+    throw new Error('[moon-base] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-base] Demo data loaded: ${result.operators} operators, ${result.stations} observatory stations, report templates initialized`)
 }

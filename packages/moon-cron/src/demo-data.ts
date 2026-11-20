@@ -151,5 +151,9 @@ export async function loadDemoData(): Promise<void> {
     }
   }
 
-  console.log(`[moon-cron] Demo data enriched: ${cronSeeds.length} cron jobs, ${logSeeds.length} logs, queue jobs seeded`)
+  const result = { crons: cronSeeds.length, logs: logSeeds.length, jobs: IrQueueJobModel ? jobSeeds.length : 0 }
+  if (result.crons === 0 && result.logs === 0 && result.jobs === 0) {
+    throw new Error('[moon-cron] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-cron] Demo data enriched: ${result.crons} cron jobs, ${result.logs} logs, queue jobs seeded`)
 }

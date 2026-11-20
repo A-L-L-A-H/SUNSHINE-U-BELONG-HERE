@@ -118,5 +118,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-crm] Demo data enriched: ${stageSeeds.length} stages, ${teamSeeds.length} teams, ${leadSeeds.length} leads with pipeline tracking`)
+  const result = { stages: stageSeeds.length, teams: teamSeeds.length, leads: leadSeeds.length }
+  if (result.stages === 0 && result.teams === 0 && result.leads === 0) {
+    throw new Error('[moon-crm] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-crm] Demo data enriched: ${result.stages} stages, ${result.teams} teams, ${result.leads} leads with pipeline tracking`)
 }

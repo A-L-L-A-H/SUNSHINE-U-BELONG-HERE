@@ -76,89 +76,91 @@ export async function loadDemoData() {
     }
   }
 
-  // Seed sample automation rules
-  if (IrAutomation) {
-    const automations = jsonSeed?.automations || [
-      {
-        name: 'Auto-Schedule SLA Review on Critical Ticket',
-        model: 'hd.ticket',
-        trigger: 'on_create',
-        domain: JSON.stringify({ priority: 'critical' }),
-        actionType: 'create_activity',
-        actionData: JSON.stringify({ summary: 'Emergency SLA Triage Required (2h window)' }),
-        active: true,
-      },
-      {
-        name: 'Broadcast CAB RFC Approval to Outbound Mesh',
-        model: 'cab.change',
-        trigger: 'on_update',
-        domain: JSON.stringify({ status: 'approved' }),
-        actionType: 'enqueue_job',
-        actionData: JSON.stringify({ jobName: 'Dispatch RFC Approved Webhook', queueName: 'automations' }),
-        active: true,
-      }
-    ]
+  const automations: { name: string; model: string; trigger: string; domain: string; actionType: string; actionData: string; active?: boolean }[] = IrAutomation
+    ? jsonSeed?.automations || [
+        {
+          name: 'Auto-Schedule SLA Review on Critical Ticket',
+          model: 'hd.ticket',
+          trigger: 'on_create',
+          domain: JSON.stringify({ priority: 'critical' }),
+          actionType: 'create_activity',
+          actionData: JSON.stringify({ summary: 'Emergency SLA Triage Required (2h window)' }),
+          active: true,
+        },
+        {
+          name: 'Broadcast CAB RFC Approval to Outbound Mesh',
+          model: 'cab.change',
+          trigger: 'on_update',
+          domain: JSON.stringify({ status: 'approved' }),
+          actionType: 'enqueue_job',
+          actionData: JSON.stringify({ jobName: 'Dispatch RFC Approved Webhook', queueName: 'automations' }),
+          active: true,
+        }
+      ]
+    : []
 
-    for (const a of automations) {
-      const existing = await (IrAutomation as any).fetch(IrAutomation, env, [['name', '=', a.name]])
-      if (!existing.length) {
-        await (IrAutomation as any).spawn(IrAutomation, env, a)
-      }
+  for (const a of automations) {
+    const existing = await (IrAutomation as any).fetch(IrAutomation, env, [['name', '=', a.name]])
+    if (!existing.length) {
+      await (IrAutomation as any).spawn(IrAutomation, env, a)
     }
   }
 
-  // Seed sample webhook & log
-  if (IrWebhook && IrWebhookLog) {
-    const webhooks = jsonSeed?.webhooks || [
-      {
-        name: 'Cosmic Council Security Dispatcher',
-        url: 'https://security.moonwitness.org/api/hooks/telemetry',
-        eventTrigger: 'record.created',
-        active: true,
-        logs: [
-          {
-            event: 'ticket.created',
-            status: 'success',
-            responseCode: 200,
-            durationMs: 38.4,
-            payload: JSON.stringify({ event: 'ticket.created', id: 104, priority: 'high' }),
-            responseBody: '{"acknowledged": true, "receiptId": "MW-SEC-991"}'
-          }
-        ]
-      }
-    ]
+  const webhooks: { name: string; url: string; eventTrigger: string; active?: boolean; logs?: { event: string; status: string; responseCode: number; durationMs: number; payload: string; responseBody: string }[] }[] = IrWebhook && IrWebhookLog
+    ? jsonSeed?.webhooks || [
+        {
+          name: 'Cosmic Council Security Dispatcher',
+          url: 'https://security.moonwitness.org/api/hooks/telemetry',
+          eventTrigger: 'record.created',
+          active: true,
+          logs: [
+            {
+              event: 'ticket.created',
+              status: 'success',
+              responseCode: 200,
+              durationMs: 38.4,
+              payload: JSON.stringify({ event: 'ticket.created', id: 104, priority: 'high' }),
+              responseBody: '{"acknowledged": true, "receiptId": "MW-SEC-991"}'
+            }
+          ]
+        }
+      ]
+    : []
 
-    for (const w of webhooks) {
-      let hookId: number
-      const existing = await (IrWebhook as any).fetch(IrWebhook, env, [['name', '=', w.name]])
-      if (!existing.length) {
-        const hook = await (IrWebhook as any).spawn(IrWebhook, env, {
-          name: w.name,
-          url: w.url,
-          eventTrigger: w.eventTrigger,
-          active: w.active ?? true,
-        })
-        hookId = hook.id
-      } else {
-        hookId = existing[0].id
-      }
+  for (const w of webhooks) {
+    let hookId: number
+    const existing = await (IrWebhook as any).fetch(IrWebhook, env, [['name', '=', w.name]])
+    if (!existing.length) {
+      const hook = await (IrWebhook as any).spawn(IrWebhook, env, {
+        name: w.name,
+        url: w.url,
+        eventTrigger: w.eventTrigger,
+        active: w.active ?? true,
+      })
+      hookId = hook.id
+    } else {
+      hookId = existing[0].id
+    }
 
-      if (w.logs) {
-        for (const l of w.logs) {
-          const logExisting = await (IrWebhookLog as any).fetch(IrWebhookLog, env, [
-            ['webhookId', '=', hookId],
-            ['event', '=', l.event]
-          ])
-          if (!logExisting.length) {
-            await (IrWebhookLog as any).spawn(IrWebhookLog, env, {
-              webhookId: hookId,
-              ...l
-            })
-          }
+    if (w.logs) {
+      for (const l of w.logs) {
+        const logExisting = await (IrWebhookLog as any).fetch(IrWebhookLog, env, [
+          ['webhookId', '=', hookId],
+          ['event', '=', l.event]
+        ])
+        if (!logExisting.length) {
+          await (IrWebhookLog as any).spawn(IrWebhookLog, env, {
+            webhookId: hookId,
+            ...l
+          })
         }
       }
     }
   }
 
-  console.log(`[moon-khidra] Demo data loaded: ${demoConversations.length} conversations, automations, and webhook logs`)
+  const result = { conversations: demoConversations.length, automations: automations.length, webhooks: webhooks.length }
+  if (result.conversations === 0 && result.automations === 0 && result.webhooks === 0) {
+    throw new Error('[moon-khidra] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-khidra] Demo data loaded: ${result.conversations} conversations, automations, and webhook logs`)
 }

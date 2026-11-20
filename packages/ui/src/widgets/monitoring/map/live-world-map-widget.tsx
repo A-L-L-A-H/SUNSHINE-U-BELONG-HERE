@@ -125,7 +125,7 @@ export function LiveWorldMapWidget({
       color: "hsl(var(--secondary))",
     },
     {
-      label: "Cyber Events",
+      label: "Security Events",
       value: formatCount(cyberAttacks.length, resolvedStatus),
       color: "hsl(var(--warning))",
     },

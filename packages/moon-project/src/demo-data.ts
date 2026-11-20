@@ -167,5 +167,9 @@ export async function loadDemoData() {
     }
   }
 
-  console.log(`[moon-project] Demo data enriched: ${projectSeeds.length} projects, ${milestoneSeeds.length} milestones, ${sprintSeeds.length} sprints, ${taskSeeds.length} tasks`)
+  const result = { projects: projectSeeds.length, milestones: milestoneSeeds.length, sprints: sprintSeeds.length, tasks: taskSeeds.length }
+  if (result.projects === 0 && result.milestones === 0 && result.sprints === 0 && result.tasks === 0) {
+    throw new Error('[moon-project] loadDemoData produced empty dataset')
+  }
+  console.log(`[moon-project] Demo data enriched: ${result.projects} projects, ${result.milestones} milestones, ${result.sprints} sprints, ${result.tasks} tasks`)
 }
