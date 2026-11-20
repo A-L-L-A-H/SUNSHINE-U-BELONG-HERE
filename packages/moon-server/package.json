@@ -7,6 +7,21 @@
   "bin": {
     "moon": "./bin/moon.js"
   },
+  "exports": {
+    ".": "./dist/index.js",
+    "./handlers/auth.js": "./dist/handlers/auth.js",
+    "./handlers/meta.js": "./dist/handlers/meta.js",
+    "./handlers/rest.js": "./dist/handlers/rest.js",
+    "./handlers/rpc.js": "./dist/handlers/rpc.js",
+    "./handlers/sse.js": "./dist/handlers/sse.js",
+    "./router.js": "./dist/router.js",
+    "./utils/auth.js": "./dist/utils/auth.js",
+    "./utils/http.js": "./dist/utils/http.js",
+    "./utils/validation.js": "./dist/utils/validation.js",
+    "./config.js": "./dist/config.js",
+    "./logger.js": "./dist/logger.js",
+    "./telemetry.js": "./dist/telemetry.js"
+  },
   "scripts": {
     "build": "tsc"
   },

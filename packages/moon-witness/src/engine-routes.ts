@@ -1,7 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { createCtx, getModel } from '@moon/orm'
-import { verifyToken } from '@moon/server'
-import { globalRoutes } from '@moon/server/dist/router.js'
+import { verifyToken, globalRoutes } from '@moon/server'
 import { WitnessEngineRegistry, WitnessEngineRuntime } from './services/engine-runtime.js'
 import { MoonOrmEngineRunStore } from './services/engine-store.js'
 import { createRevelationQueryModule } from './engines/revelation-query.js'

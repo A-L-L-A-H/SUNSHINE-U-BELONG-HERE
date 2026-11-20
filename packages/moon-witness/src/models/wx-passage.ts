@@ -17,8 +17,6 @@ export default class WxPassage extends Vertex {
   language = fields.Char({ default: 'id', size: 10 })
   embedding = fields.Vector({ dim: 768 })
   vector_indexed = fields.Boolean({ default: false })
-  created_at = fields.DateTime({ autoNowAdd: true })
-  updated_at = fields.DateTime({ autoNow: true })
 
   static async beforeSave(
     modelClass: typeof Vertex,
