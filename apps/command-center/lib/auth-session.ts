@@ -6,7 +6,7 @@ export const SESSION_COOKIE = "moon_session"
 const apiBaseUrl =
   process.env.MOON_API_URL ||
   process.env.NEXT_PUBLIC_API_URL ||
-  `http://api:${APP_PORTS.API_BACKEND}`
+  (process.env.NODE_ENV === 'development' ? `http://localhost:${APP_PORTS.API_BACKEND}` : `http://api:${APP_PORTS.API_BACKEND}`)
 
 export function getApiUrl(path: string): URL {
   return new URL(path, `${apiBaseUrl.replace(/\/$/, "")}/`)

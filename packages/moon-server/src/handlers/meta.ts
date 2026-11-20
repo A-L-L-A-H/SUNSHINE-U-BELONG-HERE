@@ -277,7 +277,7 @@ export async function handleReadiness(
     await db.raw('SELECT 1 as ping')
 
     // Vector index diagnostics
-    let vectorIndex = { exists: false, message: 'No pgvector extension' }
+    let vectorIndex: { exists: boolean; message?: string; contentIndex?: unknown; passageIndex?: unknown } = { exists: false, message: 'No pgvector extension' }
     try {
       const ext = await db.raw("SELECT 1 FROM pg_extension WHERE extname = 'vector'")
       if (ext.length > 0) {
@@ -327,7 +327,7 @@ export async function handleHealth(
     const db = getDb()
     await db.raw('SELECT 1 as ping')
     // Vector index diagnostics
-    let vectorIndex = { exists: false, message: 'No pgvector extension' }
+    let vectorIndex: { exists: boolean; message?: string; contentIndex?: unknown; passageIndex?: unknown } = { exists: false, message: 'No pgvector extension' }
     try {
       const ext = await db.raw("SELECT 1 FROM pg_extension WHERE extname = 'vector'")
       if (ext.length > 0) {

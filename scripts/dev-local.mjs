@@ -37,11 +37,13 @@ const env = {
 
 const isWindows = process.platform === "win32"
 const pnpmCmd = isWindows ? "pnpm.cmd" : "pnpm"
+const shell = isWindows ? true : undefined
 
 const child = spawn(pnpmCmd, ["dev"], {
   cwd: repoRoot,
   env,
   stdio: "inherit",
+  shell,
 })
 
 child.on("exit", (code) => {

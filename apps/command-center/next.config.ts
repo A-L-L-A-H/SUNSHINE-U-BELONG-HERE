@@ -39,10 +39,11 @@ const nextConfig: NextConfig = {
     viewTransition: true,
   },
   async rewrites() {
+    const isDev = process.env.NODE_ENV === "development"
     const apiUrl =
       process.env.MOON_API_URL ||
       process.env.NEXT_PUBLIC_API_URL ||
-      "http://api:4000"
+      (isDev ? "http://localhost:4000" : "http://api:4000")
     return [
       {
         source: "/health/:path*",
