@@ -76,50 +76,50 @@ export async function loadDemoData() {
 
   // ── 5. Custom Dashboard Widgets ──
   const IrDashboardWidget = getModel('ir.dashboard.widget')
-  if (IrDashboardWidget) {
-    const widgetSeeds = jsonSeed?.widgets || [
-      {
-        name: 'Active Support Tickets',
-        widgetType: 'kpi_card',
-        model: 'hd.ticket',
-        metricField: 'id',
-        aggregation: 'count',
-        accentColor: 'cyan',
-        sequence: 10,
-        active: true,
-      },
-      {
-        name: 'Project Task Milestones',
-        widgetType: 'kpi_card',
-        model: 'pj.task',
-        metricField: 'id',
-        aggregation: 'count',
-        accentColor: 'green',
-        sequence: 20,
-        active: true,
-      },
-      {
-        name: 'Ticket Priority Distribution',
-        widgetType: 'metric_chart',
-        model: 'hd.ticket',
-        metricField: 'priority',
-        aggregation: 'count',
-        accentColor: 'purple',
-        sequence: 30,
-        active: true,
-      },
-      {
-        name: 'Recent Background Jobs',
-        widgetType: 'record_feed',
-        model: 'ir.queue.job',
-        metricField: 'status',
-        aggregation: 'count',
-        accentColor: 'yellow',
-        sequence: 40,
-        active: true,
-      },
-    ]
+  const widgetSeeds = jsonSeed?.widgets || [
+    {
+      name: 'Active Support Tickets',
+      widgetType: 'kpi_card',
+      model: 'hd.ticket',
+      metricField: 'id',
+      aggregation: 'count',
+      accentColor: 'cyan',
+      sequence: 10,
+      active: true,
+    },
+    {
+      name: 'Project Task Milestones',
+      widgetType: 'kpi_card',
+      model: 'pj.task',
+      metricField: 'id',
+      aggregation: 'count',
+      accentColor: 'green',
+      sequence: 20,
+      active: true,
+    },
+    {
+      name: 'Ticket Priority Distribution',
+      widgetType: 'metric_chart',
+      model: 'hd.ticket',
+      metricField: 'priority',
+      aggregation: 'count',
+      accentColor: 'purple',
+      sequence: 30,
+      active: true,
+    },
+    {
+      name: 'Recent Background Jobs',
+      widgetType: 'record_feed',
+      model: 'ir.queue.job',
+      metricField: 'status',
+      aggregation: 'count',
+      accentColor: 'yellow',
+      sequence: 40,
+      active: true,
+    },
+  ]
 
+  if (IrDashboardWidget) {
     for (const w of widgetSeeds) {
       const existing = await (IrDashboardWidget as any).fetch(IrDashboardWidget, env, [['name', '=', w.name]])
       if (!existing.length) {

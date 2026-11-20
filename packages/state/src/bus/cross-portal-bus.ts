@@ -44,4 +44,5 @@ class CrossPortalEventBus {
   }
 }
 
+export { CrossPortalEventBus }
 export const crossPortalBus = new CrossPortalEventBus()

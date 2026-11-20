@@ -102,42 +102,42 @@ export async function loadDemoData(): Promise<void> {
   }
 
   // Seed sample queue jobs if model is registered
-  if (IrQueueJobModel) {
-    const jobSeeds = jsonSeed?.jobs || [
-      {
-        name: 'Batch Celestial Telemetry Aggregator',
-        queueName: 'celestial-compute',
-        status: 'completed',
-        priority: 3,
-        progress: 100,
-        attempts: 1,
-        maxAttempts: 3,
-        durationMs: 1800,
-        payload: JSON.stringify({ batchSize: 50, date: now.toISOString().slice(0, 10) }),
-        result: JSON.stringify({ processedCount: 50, success: true }),
-      },
-      {
-        name: 'Dispatch RFC Status Digest Notification',
-        queueName: 'notifications',
-        status: 'active',
-        priority: 2,
-        progress: 65,
-        attempts: 1,
-        maxAttempts: 3,
-        payload: JSON.stringify({ channel: 'email', recipients: ['council@moonwitness.org'] }),
-      },
-      {
-        name: 'Transactional Stock Valuation Recompute',
-        queueName: 'finance',
-        status: 'waiting',
-        priority: 5,
-        progress: 0,
-        attempts: 0,
-        maxAttempts: 3,
-        payload: JSON.stringify({ fiscalYear: 1448 }),
-      }
-    ]
+  const jobSeeds = jsonSeed?.jobs || [
+    {
+      name: 'Batch Celestial Telemetry Aggregator',
+      queueName: 'celestial-compute',
+      status: 'completed',
+      priority: 3,
+      progress: 100,
+      attempts: 1,
+      maxAttempts: 3,
+      durationMs: 1800,
+      payload: JSON.stringify({ batchSize: 50, date: now.toISOString().slice(0, 10) }),
+      result: JSON.stringify({ processedCount: 50, success: true }),
+    },
+    {
+      name: 'Dispatch RFC Status Digest Notification',
+      queueName: 'notifications',
+      status: 'active',
+      priority: 2,
+      progress: 65,
+      attempts: 1,
+      maxAttempts: 3,
+      payload: JSON.stringify({ channel: 'email', recipients: ['council@moonwitness.org'] }),
+    },
+    {
+      name: 'Transactional Stock Valuation Recompute',
+      queueName: 'finance',
+      status: 'waiting',
+      priority: 5,
+      progress: 0,
+      attempts: 0,
+      maxAttempts: 3,
+      payload: JSON.stringify({ fiscalYear: 1448 }),
+    },
+  ]
 
+  if (IrQueueJobModel) {
     for (const j of jobSeeds) {
       const existing = await IrQueueJobModel.fetch(IrQueueJobModel, env, [['name', '=', j.name]])
       if (!existing.length) {

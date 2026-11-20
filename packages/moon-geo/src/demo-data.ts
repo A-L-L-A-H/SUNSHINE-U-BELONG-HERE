@@ -78,14 +78,13 @@ export async function loadDemoData() {
     }
   }
 
-  // ── Sample Districts (Kecamatan) ──
-  if (District) {
-    const districtSeeds = jsonSeed?.districts || [
-      { kemendagriCode: '32.73.01', cityCode: '32.73', name: 'Kecamatan Coblong (ITB Kampus)', lat: -6.8905, lng: 107.6105 },
-      { kemendagriCode: '32.73.02', cityCode: '32.73', name: 'Kecamatan Sukasari', lat: -6.8675, lng: 107.5892 },
-      { kemendagriCode: '31.71.01', cityCode: '31.71', name: 'Kecamatan Menteng (Taman Ismail Marzuki)', lat: -6.1963, lng: 106.8378 }
-    ]
+  const districtSeeds = jsonSeed?.districts || [
+    { kemendagriCode: '32.73.01', cityCode: '32.73', name: 'Kecamatan Coblong (ITB Kampus)', lat: -6.8905, lng: 107.6105 },
+    { kemendagriCode: '32.73.02', cityCode: '32.73', name: 'Kecamatan Sukasari', lat: -6.8675, lng: 107.5892 },
+    { kemendagriCode: '31.71.01', cityCode: '31.71', name: 'Kecamatan Menteng (Taman Ismail Marzuki)', lat: -6.1963, lng: 106.8378 }
+  ]
 
+  if (District) {
     for (const d of districtSeeds) {
       const cId = cityIds[d.cityCode]
       if (!cId) continue

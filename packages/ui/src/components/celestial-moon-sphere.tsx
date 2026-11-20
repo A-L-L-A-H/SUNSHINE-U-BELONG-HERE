@@ -9,6 +9,7 @@ export interface CelestialMoonSphereProps {
   interactive?: boolean
   showTelemetry?: boolean
   glowColor?: string
+  className?: string
 }
 
 export function CelestialMoonSphere({

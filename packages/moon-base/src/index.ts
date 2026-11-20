@@ -125,7 +125,7 @@ const getBootstrapAdminPassword = (): string => {
   return randomBytes(32).toString('base64url')
 }
 
-export const PARTNER_SEED_DATA = {
+export const getPartnerSeedData = () => ({
   company: {
     name: 'MoonWitness',
     isCompany: true,
@@ -157,7 +157,13 @@ export const PARTNER_SEED_DATA = {
       isAdmin: true,
     }
   ]
-}
+})
+
+export const PARTNER_SEED_DATA = new Proxy({} as ReturnType<typeof getPartnerSeedData>, {
+  get(_target, prop) {
+    return (getPartnerSeedData() as any)[prop]
+  }
+})
 
 export default {
   name: 'base',

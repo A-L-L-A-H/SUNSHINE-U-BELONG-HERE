@@ -76,8 +76,6 @@ export function Interactive3DMoonOrreryModal() {
         title="// 3D LUNAR ORBIT & HIJRI PHASE VISUALIZER V5.0"
         icon={Moon}
         maxWidth="max-w-lg"
-        borderColor="border-accent/60"
-        glowColor="rgba(255,230,0,0.3)"
       >
         <div className="flex flex-col items-center space-y-4 p-6 text-center">
           <canvas

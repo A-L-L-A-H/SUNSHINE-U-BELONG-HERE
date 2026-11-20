@@ -11,6 +11,6 @@ export default {
   description: 'WhatsApp messaging provider for @moon/channels using Baileys',
   depends: ['channels', 'base'],
   providers: [
-    WhatsAppProvider
+    new WhatsAppProvider()
   ]
 }

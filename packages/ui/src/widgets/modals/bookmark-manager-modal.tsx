@@ -51,8 +51,6 @@ export function BookmarkManagerModal() {
         title={`Saved Bookmarks (${bookmarks.length})`}
         icon={Bookmark}
         maxWidth="max-w-xl"
-        borderColor="border-accent/50"
-        glowColor="rgba(255,230,0,0.25)"
       >
         <div className="space-y-3 p-6 text-xs">
           {bookmarks.length === 0 ? (
