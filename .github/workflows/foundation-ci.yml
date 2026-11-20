@@ -11,6 +11,9 @@ on:
       - dev
   workflow_dispatch:
 
+env:
+  CI: 'true'
+
 jobs:
   test:
     name: Test
