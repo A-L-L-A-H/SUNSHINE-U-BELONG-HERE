@@ -276,9 +276,33 @@ export async function handleReadiness(
     const db = getDb()
     await db.raw('SELECT 1 as ping')
 
+    // Vector index diagnostics
+    let vectorIndex = { exists: false, message: 'No pgvector extension' }
+    try {
+      const ext = await db.raw("SELECT 1 FROM pg_extension WHERE extname = 'vector'")
+      if (ext.length > 0) {
+        const idxContent = await db.raw(`
+          SELECT indexrelid::regclass as name, pg_size_pretty(pg_relation_size(indexrelid)) as size
+          FROM pg_index WHERE indrelid = 'wx_content'::regclass AND indexrelid::regclass LIKE '%hnsw%'
+        `)
+        const idxPassage = await db.raw(`
+          SELECT indexrelid::regclass as name, pg_size_pretty(pg_relation_size(indexrelid)) as size
+          FROM pg_index WHERE indrelid = 'wx_passage'::regclass AND indexrelid::regclass LIKE '%hnsw%'
+        `)
+        vectorIndex = {
+          exists: true,
+          contentIndex: idxContent[0] || null,
+          passageIndex: idxPassage[0] || null,
+        }
+      }
+    } catch {
+      vectorIndex = { exists: false, message: 'Vector index check failed' }
+    }
+
     sendJson(res, 200, {
       status: 'ready',
       database: 'connected',
+      vectorIndex,
       uptime: process.uptime(),
       timestamp: new Date().toISOString()
     }, req)
@@ -302,11 +326,35 @@ export async function handleHealth(
   try {
     const db = getDb()
     await db.raw('SELECT 1 as ping')
+    // Vector index diagnostics
+    let vectorIndex = { exists: false, message: 'No pgvector extension' }
+    try {
+      const ext = await db.raw("SELECT 1 FROM pg_extension WHERE extname = 'vector'")
+      if (ext.length > 0) {
+        const idxContent = await db.raw(`
+          SELECT indexrelid::regclass as name, pg_size_pretty(pg_relation_size(indexrelid)) as size
+          FROM pg_index WHERE indrelid = 'wx_content'::regclass AND indexrelid::regclass LIKE '%hnsw%'
+        `)
+        const idxPassage = await db.raw(`
+          SELECT indexrelid::regclass as name, pg_size_pretty(pg_relation_size(indexrelid)) as size
+          FROM pg_index WHERE indrelid = 'wx_passage'::regclass AND indexrelid::regclass LIKE '%hnsw%'
+        `)
+        vectorIndex = {
+          exists: true,
+          contentIndex: idxContent[0] || null,
+          passageIndex: idxPassage[0] || null,
+        }
+      }
+    } catch {
+      vectorIndex = { exists: false, message: 'Vector index check failed' }
+    }
+
     const memory = process.memoryUsage()
 
     sendJson(res, 200, {
       status: 'healthy',
       database: 'connected',
+      vectorIndex,
       uptime: process.uptime(),
       memory: {
         rss: `${Math.round(memory.rss / 1024 / 1024)}MB`,

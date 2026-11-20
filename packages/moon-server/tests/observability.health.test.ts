@@ -44,6 +44,29 @@ vi.mock('@moon/orm', () => {
   }
 })
 
+// Mock with vector extension and indexes
+const mockWithVector = {
+  getDb: () => ({
+    client: { driverName: 'pg' },
+    raw: async (sql: string) => {
+      if (sql.includes('FAIL')) {
+        throw new Error('Database connection failed')
+      }
+      if (sql.includes("pg_extension WHERE extname = 'vector'")) {
+        return [{ '?column?': 1 }]
+      }
+      if (sql.includes('pg_index WHERE indrelid') && sql.includes('wx_content')) {
+        return [{ name: 'idx_wx_content_embedding_hnsw', size: '12 MB' }]
+      }
+      if (sql.includes('pg_index WHERE indrelid') && sql.includes('wx_passage')) {
+        return [{ name: 'idx_wx_passage_embedding_hnsw', size: '8 MB' }]
+      }
+      return [{ ping: 1 }]
+    }
+  }),
+  registry: new Map()
+}
+
 describe('Observability: Health, Liveness & Readiness Probes (#18, #21)', () => {
   it('returns 200 OK for /health/live without querying database', () => {
     const { req, res, getStatusCode, getData } = createMockReqRes('/health/live')
@@ -76,6 +99,24 @@ describe('Observability: Health, Liveness & Readiness Probes (#18, #21)', () => 
     expect(data.database).toBe('connected')
     expect(data.memory).toBeDefined()
     expect(typeof data.uptime).toBe('number')
+  })
+
+  it('returns vectorIndex diagnostics when pgvector extension exists', async () => {
+    vi.resetModules()
+    vi.doMock('@moon/orm', () => mockWithVector)
+    const { handleHealth: handleHealthWithVector } = await import('../src/handlers/meta.js')
+
+    const { req, res, getStatusCode, getData } = createMockReqRes('/health')
+    await handleHealthWithVector(req, res)
+
+    expect(getStatusCode()).toBe(200)
+    const data = getData()
+    expect(data.vectorIndex).toBeDefined()
+    expect(data.vectorIndex.exists).toBe(true)
+    expect(data.vectorIndex.contentIndex).toBeDefined()
+    expect(data.vectorIndex.passageIndex).toBeDefined()
+    expect(data.vectorIndex.contentIndex?.name).toBe('idx_wx_content_embedding_hnsw')
+    expect(data.vectorIndex.passageIndex?.name).toBe('idx_wx_passage_embedding_hnsw')
   })
 
   it('returns 200 OK for /db/status', async () => {
