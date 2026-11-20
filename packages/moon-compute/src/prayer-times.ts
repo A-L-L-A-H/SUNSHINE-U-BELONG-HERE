@@ -8,6 +8,48 @@
  */
 import { Coordinates, CalculationMethod, PrayerTimes, Qibla } from 'adhan'
 
+/**
+ * Supported prayer time conventions mapped to adhan CalculationMethod presets.
+ * Values correspond to adhan.CalculationMethod.* static methods.
+ * Reference: adhan@4.4.4 calculation methods
+ */
+export type PrayerConvention =
+  | 'MUSLIM_WORLD_LEAGUE'  // MWL: 18°/17° (global standard)
+  | 'EGYPTIAN'             // Egypt: 19.5°/17.5°
+  | 'KARACHI'              // Pakistan: 18°/18°
+  | 'UMM_AL_QURA'          // Saudi Arabia: 18.5°/fixed 90min after Maghrib
+  | 'DUBAI'                // UAE: 18.2°/18.2°
+  | 'MOONSIGHTING_COMMITTEE' // North America moonsighting: 18°/18°
+  | 'NORTH_AMERICA'        // ISNA: 15°/15°
+  | 'KUWAIT'               // 18°/17.5°
+  | 'QATAR'                // 18°/fixed
+  | 'SINGAPORE'            // 20°/18°
+  | 'TEHRAN'               // Iran: 17.7°/14°/maghrib 4.5°
+  | 'TURKEY'               // Diyanet: 18°/17°
+  | 'KEMENAG'              // Indonesia: 20°/18° (alias for Indonesian convention)
+  | 'OTHER'                // Custom angles (fajrAngle/ishaAngle provided separately)
+
+/**
+ * Convention-specific angle presets (fajrAngle, ishaAngle, maghribAngleOffset)
+ * Maghrib angle offset: 0 = standard sunset+2min; >0 = fixed minutes after Maghrib (e.g., UmmAlQura = 90min)
+ */
+const CONVENTION_PRESETS: Record<PrayerConvention, { fajr: number; isha: number; maghribOffset?: number }> = {
+  MUSLIM_WORLD_LEAGUE: { fajr: 18, isha: 17 },
+  EGYPTIAN: { fajr: 19.5, isha: 17.5 },
+  KARACHI: { fajr: 18, isha: 18 },
+  UMM_AL_QURA: { fajr: 18.5, isha: 18.5, maghribOffset: 90 },
+  DUBAI: { fajr: 18.2, isha: 18.2 },
+  MOONSIGHTING_COMMITTEE: { fajr: 18, isha: 18 },
+  NORTH_AMERICA: { fajr: 15, isha: 15 },
+  KUWAIT: { fajr: 18, isha: 17.5 },
+  QATAR: { fajr: 18, isha: 18, maghribOffset: 0 },
+  SINGAPORE: { fajr: 20, isha: 18 },
+  TEHRAN: { fajr: 17.7, isha: 14, maghribOffset: 4.5 },
+  TURKEY: { fajr: 18, isha: 17 },
+  KEMENAG: { fajr: 20, isha: 18 },
+  OTHER: { fajr: 0, isha: 0 },
+}
+
 export interface PrayerData {
   currentPrayer: string
   nextPrayer: string
@@ -114,7 +156,10 @@ export function calculateDetailedPrayerTimes(
   longitude: number,
   dateStr = '2026-09-06',
   timezoneOffset = 7.0,
-  convention: 'KEMENAG' | 'MWL' | 'ISNA' | 'UMM_AL_QURA' = 'KEMENAG'
+  convention: PrayerConvention = 'KEMENAG',
+  // For OTHER convention: custom fajr/isha angles in degrees
+  customFajrAngle?: number,
+  customIshaAngle?: number
 ): DetailedPrayerTimesResult {
   let dt: Date
   try {
@@ -166,15 +211,17 @@ export function calculateDetailedPrayerTimes(
 
   let fajrAngle = 20.0
   let ishaAngle = 18.0
-  if (convention === 'MWL') {
-    fajrAngle = 18.0
-    ishaAngle = 17.0
-  } else if (convention === 'ISNA') {
-    fajrAngle = 15.0
-    ishaAngle = 15.0
-  } else if (convention === 'UMM_AL_QURA') {
-    fajrAngle = 18.5
-    ishaAngle = 18.5
+  
+  const preset = CONVENTION_PRESETS[convention]
+  if (preset) {
+    fajrAngle = preset.fajr
+    ishaAngle = preset.isha
+  }
+  
+  // Allow custom angles for OTHER convention
+  if (convention === 'OTHER') {
+    fajrAngle = customFajrAngle ?? 20.0
+    ishaAngle = customIshaAngle ?? 18.0
   }
 
   // 1. Sunrise & Sunset (-0.833° accounting for refraction & solar semidiameter)
@@ -199,8 +246,11 @@ export function calculateDetailedPrayerTimes(
 
   // 6. Isha
   let tIsha: number
+  
   if (convention === 'UMM_AL_QURA') {
     tIsha = tMaghrib + 1.5 // Fixed 90 minutes after Maghrib
+  } else if (preset?.maghribOffset && preset.maghribOffset > 0) {
+    tIsha = tMaghrib + preset.maghribOffset / 60.0
   } else {
     const omegaIsha = hourAngle(-ishaAngle)
     tIsha = solarTransit + omegaIsha / 15.0

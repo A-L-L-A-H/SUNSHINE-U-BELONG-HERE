@@ -15,7 +15,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "adhan": "^4.4.4"
+    "adhan": "4"
   },
   "devDependencies": {
     "@types/node": "^20",

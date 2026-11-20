@@ -653,7 +653,7 @@ importers:
   packages/moon-compute:
     dependencies:
       adhan:
-        specifier: ^4.4.4
+        specifier: '4'
         version: 4.4.4
     devDependencies:
       '@types/node':
