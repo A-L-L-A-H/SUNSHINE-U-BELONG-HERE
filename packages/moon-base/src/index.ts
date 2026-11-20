@@ -120,8 +120,7 @@ const getBootstrapAdminPassword = (): string => {
   if (process.env.NODE_ENV === 'production') {
     throw new Error('BOOTSTRAP_ADMIN_PASSWORD is required for production installation')
   }
-  // Development: fixed known password for demo/login functionality
-  return 'admin123'
+  return getSecureBootstrapSecret('BOOTSTRAP_ADMIN_PASSWORD')
 }
 
 export const getPartnerSeedData = () => ({

@@ -1,7 +1,17 @@
 import { createCtx, getDb, getModel, SUPERUSER_ID, loadJsonSeed } from '@moon/orm'
 import bcrypt from 'bcryptjs'
+import { randomBytes } from 'node:crypto'
 
 const BCRYPT_ROUNDS = 10
+
+function getSecureDemoPassword(): string {
+  const password = process.env.MOON_DEMO_PASSWORD?.trim()
+  if (password) return password
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('MOON_DEMO_PASSWORD is required for production demo seed')
+  }
+  return randomBytes(32).toString('base64url')
+}
 
 export async function loadDemoData() {
   const User = getModel('vx.user')
@@ -35,41 +45,42 @@ export async function loadDemoData() {
   }
 
   // ── Demo Operators ──
+  const secureDemoPassword = getSecureDemoPassword()
   const demoUsers = jsonSeed?.operators || [
     {
       name: 'Tariq Ibn Ziyad',
       email: 'tariq@moonwitness.os',
-      password: 'password123',
+      password: secureDemoPassword,
       isAdmin: false
     },
     {
       name: 'Fatima Al-Fihri',
       email: 'fatima@moonwitness.os',
-      password: 'password123',
+      password: secureDemoPassword,
       isAdmin: true
     },
     {
       name: 'Hassan Ibn Al-Haytham',
       email: 'hassan@moonwitness.os',
-      password: 'password123',
+      password: secureDemoPassword,
       isAdmin: false
     },
     {
       name: 'Maryam Mirzakhani',
       email: 'maryam@moonwitness.os',
-      password: 'password123',
+      password: secureDemoPassword,
       isAdmin: false
     },
     {
       name: 'Abu Raihan Al-Biruni',
       email: 'biruni@moonwitness.os',
-      password: 'password123',
+      password: secureDemoPassword,
       isAdmin: true
     },
     {
       name: 'Ulugh Beg',
       email: 'ulughbeg@moonwitness.os',
-      password: 'password123',
+      password: secureDemoPassword,
       isAdmin: false
     }
   ]

@@ -3,13 +3,25 @@ import path from 'path'
 
 export default defineConfig({
   test: {
-    include: ['packages/**/*.test.ts', 'cli/**/*.test.ts', 'scripts/**/*.test.mjs'],
+    include: [
+      'packages/**/*.test.ts',
+      'packages/**/*.test.tsx',
+      'apps/**/*.test.ts',
+      'apps/**/*.test.tsx',
+      'cli/**/*.test.ts',
+      'scripts/**/*.test.mjs',
+    ],
+    exclude: ['**/node_modules/**', '**/.next/**', '**/dist/**'],
     environment: 'node',
+    environmentMatchGlobs: [
+      ['**/apps/**/*.test.tsx', 'jsdom'],
+    ],
+    setupFiles: ['vitest.setup.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: ['packages/**/src/**/*.ts'],
-      exclude: ['packages/**/src/**/*.test.ts', 'packages/**/dist/**'],
+      include: ['packages/**/src/**/*.ts', 'packages/**/src/**/*.tsx'],
+      exclude: ['packages/**/src/**/*.test.ts', 'packages/**/src/**/*.test.tsx', 'packages/**/dist/**'],
       thresholds: {
         lines: 80,
         functions: 80,

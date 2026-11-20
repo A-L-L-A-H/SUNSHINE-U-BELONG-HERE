@@ -11,9 +11,21 @@ permissions:
   contents: read
 
 jobs:
-  test:
-    name: Test
+  test1:
+    name: Test 1
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-      - run: echo 'Hello World'
+      - run: echo 'Test 1'
+  test2:
+    name: Test 2
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - run: echo 'Test 2'
+  test3:
+    name: Test 3
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - run: echo 'Test 3'

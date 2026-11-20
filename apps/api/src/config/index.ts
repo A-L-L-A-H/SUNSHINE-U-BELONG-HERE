@@ -40,17 +40,9 @@ function resolveJwtSecret(): string {
   const secret = process.env.JWT_SECRET?.trim()
   if (secret) return secret
 
-  if (process.env.NODE_ENV === "production") {
-    throw new Error(
-      "[moon.security] Fatal: JWT_SECRET is required in production. Set a strong secret (min 16 chars)."
-    )
-  }
-
-  const devFallback = "dev-secret-key-change-in-production-min16chars"
-  console.warn(
-    "[moon.security] Notice: JWT_SECRET not set in development mode. Using standard dev fallback secret."
+  throw new Error(
+    "[moon.security] Fatal: JWT_SECRET is required. Set a strong secret (min 16 chars)."
   )
-  return devFallback
 }
 
 function resolveCorsOrigins(): string[] | ((origin: string) => boolean) {

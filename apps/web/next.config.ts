@@ -81,6 +81,10 @@ const nextConfig: NextConfig = {
         source: "/api/meta/:path*",
         destination: `${apiUrl}/api/meta/:path*`,
       },
+      {
+        source: "/api/:model/:path*",
+        destination: `${apiUrl}/api/:model/:path*`,
+      },
     ]
   },
   async headers() {

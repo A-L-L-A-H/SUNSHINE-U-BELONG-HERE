@@ -45,7 +45,7 @@ describe('Command Center canonical BFF boundary (#90)', () => {
   })
 
   it('rehydrates and proxies through the canonical backend using the server cookie', () => {
-    expect(sessionRouteSource).toContain('requestApi("/auth/session"')
+    expect(sessionRouteSource).toContain('requestApi("/api/auth/session"')
     expect(sessionRouteSource).toContain('Authorization: `Bearer ${token}`')
     expect(proxySource).toContain('SESSION_COOKIE')
     expect(proxySource).toContain('authorization')
