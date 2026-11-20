@@ -15,10 +15,6 @@ permissions:
   issues: write
   pull-requests: write
 
-concurrency:
-  group: foundation-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
-
 env:
   CI: 'true'
 
